@@ -26,12 +26,14 @@ The list of available tooltips is as follows:
 
 - **Burn Time** - Displays the number of ticks (20 ticks = 1 second) any burnable item in game will burn for.
 - **Durability** - Displays the durability of an item where applicable (e.g. tools, weapons, armour, etc). The tooltip shows both total durability and remaining durability.
-- **Registry Name** - Displays the block/item's internal ID, registry name or namespace name (e.g. minecraft:apple). While already available in the game (using `F3+h`), JEI Integration gives players more options as to how it appears in the tooltip.
 - **Max Stack Size** - Displays the maximum stack size of an item - usually 64 but in some cases, like ender pearls, it's 16.
-- **Metadata** - Displays an block/item's metadata e.g. orange wool has metadata 1.
+- **Metadata\*** - Displays an block/item's metadata e.g. orange wool has metadata 1.
 - **NBT Data** - Displays all NBT data stored on a block/item e.g. enchantments.
-- **Ore Dictionary Entries** - Displays all ore dictionary entries for a given block/item e.g. logWood
-- **Translation Key** - Displays the translation key for a given block/item. E.g. tile.stone.stone (Useful for mod translators)
+- **Ore Dictionary Entries\*** - Displays all ore dictionary entries for a given block/item e.g. logWood
+- **Registry Name** - Displays the block/item's internal ID, registry name or namespace name (e.g. minecraft:apple). While already available in the game (using `f3+h`), JEI Integration gives players more options as to how it appears in the tooltip.
+- **Translation Key** - Displays the translation key for a given block/item. E.g. block.minecraft.stone (Useful for mod translators)
+
+\* The features marked are only available in Minecraft 1.12 and below.
 
 ### Configuration
 
@@ -42,18 +44,22 @@ The mod provides the following options for when a tooltip is displayed for an it
 - **Disabled** - The tooltip is not displayed.
 - **Enabled** - The tooltip is displayed all the time.
 - **On Shift** - The tooltip is only displayed while the user is holding the left or right shift key on the keyboard.
-- **On Debug** - The tooltip is only displayed while the `advancedItemTooltips` option is enabled (`F3+h`).
+- **On Debug** - The tooltip is only displayed while the `advancedItemTooltips` option is enabled (`f3+h`).
 - **On Shift & Debug** - The tooltip is only displayed while the previous two conditions are true (On Shift & On Debug).
 
 ## FAQ
 
 ### Can you make this for Minecraft version x?
 
-No. The versions available are the versions I support.
+JEI Integration supports Minecraft 1.10+ that Forge has support for. It will not support snapshots or older versions of the game e.g. 1.7.10.
+
+### Can you make JEI Integration for the Fabric mod loader?
+
+JEI Integration is, and always will, be made for Forge.
 
 ### Should I download your mod from other websites?
 
-No. CurseForge is the only place you will find official downloads for JEI Integration. DO NOT trust other download sites.
+JEI Integration downloads are only available on CurseForge. Downloads found elsewhere are not legitimate and are most likely dangerous to use.
 
 ### Can I use your mod in my modpack?
 
