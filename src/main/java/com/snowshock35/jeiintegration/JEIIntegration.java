@@ -25,54 +25,33 @@
 package com.snowshock35.jeiintegration;
 
 import com.snowshock35.jeiintegration.config.Config;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ExtensionPoint;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.FMLNetworkConstants;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(
-        modid = JEIIntegration.MOD_ID,
-        name = JEIIntegration.MOD_NAME,
-        version = JEIIntegration.MOD_VERSION,
-        dependencies = "required-after:jei@[4.15.0,);required-after:forge@[14.23.5.2847,);",
-        useMetadata = true,
-        clientSideOnly = true,
-        acceptedMinecraftVersions = "[1.12,)",
-        canBeDeactivated = true,
-        guiFactory = "com.snowshock35.jeiintegration.config.JEIIntegrationModGuiFactory",
-        updateJSON = JEIIntegration.UPDATE_URL
-
-)
+@Mod(JEIIntegration.MOD_ID)
 public class JEIIntegration {
+  public static final String MOD_ID = "jeiintegration";
 
-    public static final String MOD_ID = "jeiintegration";
-    public static final String MOD_NAME = "JEI Integration";
-    public static final String MOD_VERSION = "@VERSION@";
-    public static final String UPDATE_URL = "https://cdn.snowshock35.com/mods/jei-integration/update.json";
+  public static Logger logger = LogManager.getLogger();;
 
-    public static Config config;
-    public static Logger logger;
+  public JEIIntegration() {
+    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+    FMLJavaModLoadingContext.get().getModEventBus().register(Config.class);
 
-    @Mod.Instance
-    public static JEIIntegration instance;
+    DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+      MinecraftForge.EVENT_BUS.register(new TooltipEventHandler());
+    });
 
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent e) {
-        logger = e.getModLog();
-
-        config = new Config(e);
-        MinecraftForge.EVENT_BUS.register(config);
-    }
-
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent e) {
-    }
-
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent e) {
-        TooltipEventHandler tooltipEventHandler = new TooltipEventHandler();
-        MinecraftForge.EVENT_BUS.register(tooltipEventHandler);
-    }
+    ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true)); // Client-side only
+  }
 }

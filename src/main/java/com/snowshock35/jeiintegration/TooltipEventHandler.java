@@ -26,162 +26,209 @@ package com.snowshock35.jeiintegration;
 
 import com.snowshock35.jeiintegration.config.Config;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.oredict.OreDictionary;
-import org.lwjgl.input.Keyboard;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.lwjgl.glfw.GLFW;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 public class TooltipEventHandler {
 
-    private Config config = JEIIntegration.config;
+  private Config.Client config = Config.CLIENT;
 
-    @SubscribeEvent
-    public void onItemTooltip(ItemTooltipEvent e) {
+  private static boolean isDebugMode() {
+    return Minecraft.getInstance().gameSettings.advancedItemTooltips;
+  }
 
-        ItemStack itemStack = e.getItemStack();
-        Item item = itemStack.getItem();
+  private static boolean isShiftKeyDown() {
+    return InputMappings.isKeyDown(Minecraft.getInstance().mainWindow.getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) ||
+      InputMappings.isKeyDown(Minecraft.getInstance().mainWindow.getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT);
+  }
 
-        int burnTime = TileEntityFurnace.getItemBurnTime(itemStack);
-        if (burnTime > 0 && !isEmptyItemStack(e)) {
-            if (Objects.equals(config.getBurnTimeTooltipMode(), "enabled")) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.burnTime") + " " + burnTime + " " + I18n.format("tooltip.jeiintegration.burnTime.suffix"));
-            } else if (Objects.equals(config.getBurnTimeTooltipMode(), "onShift") && isShiftKeyDown()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.burnTime") + " " + burnTime + " " + I18n.format("tooltip.jeiintegration.burnTime.suffix"));
-            } else if (Objects.equals(config.getBurnTimeTooltipMode(), "onDebug") && isDebugMode()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.burnTime") + " " + burnTime + " " + I18n.format("tooltip.jeiintegration.burnTime.suffix"));
-            } else if (Objects.equals(config.getBurnTimeTooltipMode(), "onShiftAndDebug") && isShiftKeyDown() && isDebugMode()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.burnTime") + " " + burnTime + " " + I18n.format("tooltip.jeiintegration.burnTime.suffix"));
-            }
-        }
+  @SubscribeEvent
+  public void onItemTooltip(ItemTooltipEvent e) {
 
-        int maxDamage = itemStack.getMaxDamage();
-        int currentDamage = maxDamage - itemStack.getItemDamage();
-        if (maxDamage > 0 && !isEmptyItemStack(e)) {
-            if (Objects.equals(config.getDurabilityTooltipMode(), "enabled")) {
-                e.getToolTip().add(1, TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.durability") + " " + currentDamage + "/" + maxDamage);
-            } else if (Objects.equals(config.getDurabilityTooltipMode(), "onShift") && isShiftKeyDown()) {
-                e.getToolTip().add(1, TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.durability") + " " + currentDamage + "/" + maxDamage);
-            } else if (Objects.equals(config.getDurabilityTooltipMode(), "onDebug") && isDebugMode()) {
-                e.getToolTip().add(1, TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.durability") + " " + currentDamage + "/" + maxDamage);
-            } else if (Objects.equals(config.getDurabilityTooltipMode(), "onShiftAndDebug") && isShiftKeyDown() && isDebugMode()) {
-                e.getToolTip().add(1, TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.durability") + " " + currentDamage + "/" + maxDamage);
-            }
-        }
+    // Retrieve the ItemStack and Item
+    ItemStack itemStack = e.getItemStack();
+    Item item = itemStack.getItem();
 
-        int metadata = itemStack.getMetadata();
-        if (!isEmptyItemStack(e)) {
-            if (Objects.equals(config.getMetadataTooltipMode(), "enabled")) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.metadata") + " " + metadata);
-            } else if (Objects.equals(config.getMetadataTooltipMode(), "onShift") && isShiftKeyDown()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.metadata") + " " + metadata);
-            } else if (Objects.equals(config.getMetadataTooltipMode(), "onDebug") && isDebugMode()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.metadata") + " " + metadata);
-            } else if (Objects.equals(config.getMetadataTooltipMode(), "onShiftAndDebug") && isShiftKeyDown() && isDebugMode()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.metadata") + " " + metadata);
-            }
-        }
-
-        NBTTagCompound nbtData = item.getNBTShareTag(itemStack);
-        if (item.getNBTShareTag(itemStack) != null && !isEmptyItemStack(e)) {
-          if (Objects.equals(config.getNbtTooltipMode(), "enabled")) {
-            e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.nbtTagData") + " " + nbtData);
-          } else if (Objects.equals(config.getNbtTooltipMode(), "onShift") && isShiftKeyDown()) {
-            e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.nbtTagData") + " " + nbtData);
-          } else if (Objects.equals(config.getNbtTooltipMode(), "onDebug") && isDebugMode()) {
-            e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.nbtTagData") + " " + nbtData);
-          } else if (Objects.equals(config.getNbtTooltipMode(), "onShiftAndDebug") && isShiftKeyDown() && isDebugMode()) {
-            e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.nbtTagData") + " " + nbtData);
-          }
-        }
-
-        if (!isEmptyItemStack(e)) {
-            if (Objects.equals(config.getRegistryNameTooltipMode(), "enabled")) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.registryName") + " " + item.getRegistryName());
-            } else if (Objects.equals(config.getRegistryNameTooltipMode(), "onShift") && isShiftKeyDown()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.registryName") + " " + item.getRegistryName());
-            } else if (Objects.equals(config.getRegistryNameTooltipMode(), "onDebug") && isDebugMode()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.registryName") + " " + item.getRegistryName());
-            } else if (Objects.equals(config.getRegistryNameTooltipMode(), "onShiftAndDebug") && isShiftKeyDown() && isDebugMode()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.registryName") + " " + item.getRegistryName());
-            }
-        }
-
-        int stackSize = e.getItemStack().getMaxStackSize();
-        if (stackSize > 0 && !isEmptyItemStack(e)) {
-            if (Objects.equals(config.getMaxStackSizeTooltipMode(), "enabled")) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.maxStackSize") + " " + itemStack.getMaxStackSize());
-            } else if (Objects.equals(config.getMaxStackSizeTooltipMode(), "onShift") && isShiftKeyDown()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.maxStackSize") + " " + itemStack.getMaxStackSize());
-            } else if (Objects.equals(config.getMaxStackSizeTooltipMode(), "onDebug") && isDebugMode()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.maxStackSize") + " " + itemStack.getMaxStackSize());
-            } else if (Objects.equals(config.getMaxStackSizeTooltipMode(), "onShiftAndDebug") && isShiftKeyDown() && isDebugMode()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.maxStackSize") + " " + itemStack.getMaxStackSize());
-            }
-        }
-
-        if (!isEmptyItemStack(e)) {
-            if (Objects.equals(config.getOreDictEntriesTooltipMode(), "enabled")) {
-                genOreDictTooltip(e);
-            } else if (Objects.equals(config.getOreDictEntriesTooltipMode(), "onShift") && isShiftKeyDown()) {
-                genOreDictTooltip(e);
-            } else if (Objects.equals(config.getOreDictEntriesTooltipMode(), "onDebug") && isDebugMode()) {
-                genOreDictTooltip(e);
-            } else if (Objects.equals(config.getOreDictEntriesTooltipMode(), "onShiftAndDebug") && isShiftKeyDown() && isDebugMode()) {
-                genOreDictTooltip(e);
-            }
-        }
-
-        if (!isEmptyItemStack(e)) {
-            if (Objects.equals(config.getUnlocalizedNameTooltipMode(), "enabled")) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.unlocalizedName") + " " + itemStack.getTranslationKey());
-            } else if (Objects.equals(config.getUnlocalizedNameTooltipMode(), "onShift") && isShiftKeyDown()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.unlocalizedName") + " " + itemStack.getTranslationKey());
-            } else if (Objects.equals(config.getUnlocalizedNameTooltipMode(), "onDebug") && isDebugMode()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.unlocalizedName") + " " + itemStack.getTranslationKey());
-            } else if (Objects.equals(config.getUnlocalizedNameTooltipMode(), "onShiftAndDebug") && isShiftKeyDown() && isDebugMode()) {
-                e.getToolTip().add(TextFormatting.DARK_GRAY + I18n.format("tooltip.jeiintegration.unlocalizedName") + " " + itemStack.getTranslationKey());
-            }
-        }
+    // If item stack empty do nothing
+    if (e.getItemStack().isEmpty()) {
+      return;
     }
 
-    private static boolean isEmptyItemStack(ItemTooltipEvent e) {
-        return e.getItemStack().isEmpty();
+    // Tooltip - Burn Time
+    int burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(itemStack);
+    if (burnTime > 0) {
+      ITextComponent burnTooltip = new TranslationTextComponent("tooltip.jeiintegration.burnTime")
+        .appendSibling(new StringTextComponent(" " + burnTime + " "))
+        .appendSibling(new TranslationTextComponent("tooltip.jeiintegration.burnTime.suffix"))
+        .applyTextStyle(TextFormatting.DARK_GRAY);
+
+      if (Objects.equals(config.burnTimeTooltipMode.get(), "enabled")) {
+        e.getToolTip().add(burnTooltip);
+      } else if (
+        Objects.equals(config.burnTimeTooltipMode.get(), "onShift")
+          && isShiftKeyDown()
+      ) {
+        e.getToolTip().add(burnTooltip);
+      } else if (
+        Objects.equals(config.burnTimeTooltipMode.get(), "onDebug")
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(burnTooltip);
+      } else if (
+        Objects.equals(config.burnTimeTooltipMode.get(), "onShiftAndDebug")
+          && isShiftKeyDown()
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(burnTooltip);
+      }
     }
 
-    private static boolean isShiftKeyDown() {
-        return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
+    // Tooltip - Durability
+    int maxDamage = itemStack.getMaxDamage();
+    int currentDamage = maxDamage - itemStack.getDamage();
+    if (maxDamage > 0) {
+      ITextComponent durabilityTooltip = new TranslationTextComponent("tooltip.jeiintegration.durability")
+        .appendSibling(new StringTextComponent(" " + currentDamage + "/" + maxDamage))
+        .applyTextStyle(TextFormatting.DARK_GRAY);
+
+      if (Objects.equals(config.durabilityTooltipMode.get(), "enabled")) {
+        e.getToolTip().add(1, durabilityTooltip);
+      } else if (
+        Objects.equals(config.durabilityTooltipMode.get(), "onShift")
+          && isShiftKeyDown()
+      ) {
+        e.getToolTip().add(1, durabilityTooltip);
+      } else if (
+        Objects.equals(config.durabilityTooltipMode.get(), "onDebug")
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(1, durabilityTooltip);
+      } else if (
+        Objects.equals(config.durabilityTooltipMode.get(), "onShiftAndDebug")
+          && isShiftKeyDown()
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(1, durabilityTooltip);
+      }
     }
 
-    private static boolean isDebugMode() {
-        return Minecraft.getMinecraft().gameSettings.advancedItemTooltips;
+    // Tooltip - NBT Data
+    CompoundNBT nbtData = item.getShareTag(itemStack);
+    if (nbtData != null) {
+      ITextComponent nbtTooltip = new TranslationTextComponent("tooltip.jeiintegration.nbtTagData")
+        .appendSibling(new StringTextComponent(" " + nbtData))
+        .applyTextStyle(TextFormatting.DARK_GRAY);
+
+      if (Objects.equals(config.nbtTooltipMode.get(), "enabled")) {
+        e.getToolTip().add(nbtTooltip);
+      } else if (
+        Objects.equals(config.nbtTooltipMode.get(), "onShift")
+          && isShiftKeyDown()
+      ) {
+        e.getToolTip().add(nbtTooltip);
+      } else if (
+        Objects.equals(config.nbtTooltipMode.get(), "onDebug")
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(nbtTooltip);
+      } else if (
+        Objects.equals(config.nbtTooltipMode.get(), "onShiftAndDebug")
+          && isShiftKeyDown()
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(nbtTooltip);
+      }
     }
 
-    private static void genOreDictTooltip(ItemTooltipEvent e) {
-        List<String> names = new ArrayList<String>();
-        for (int id : OreDictionary.getOreIDs(e.getItemStack())) {
-            String name = OreDictionary.getOreName(id);
-            if (!names.contains(name)) {
-                names.add("  " + name);
-            } else {
-                names.add("  " + TextFormatting.DARK_GRAY + name);
-            }
-        }
-        Collections.sort(names);
-        if (!names.isEmpty()) {
-            e.getToolTip().add(I18n.format("tooltip.jeiintegration.oreDict"));
-            e.getToolTip().addAll(names);
-        }
+
+    // Tooltip - Registry Name
+    ITextComponent registryTooltip = new TranslationTextComponent("tooltip.jeiintegration.registryName")
+      .appendSibling(new StringTextComponent(" " + item.getRegistryName()))
+      .applyTextStyle(TextFormatting.DARK_GRAY);
+
+    if (Objects.equals(config.registryNameTooltipMode.get(), "enabled")) {
+      e.getToolTip().add(registryTooltip);
+    } else if (
+      Objects.equals(config.registryNameTooltipMode.get(), "onShift")
+        && isShiftKeyDown()
+    ) {
+      e.getToolTip().add(registryTooltip);
+    } else if (
+      Objects.equals(config.registryNameTooltipMode.get(), "onDebug")
+        && isDebugMode()
+    ) {
+      e.getToolTip().add(registryTooltip);
+    } else if (
+      Objects.equals(config.registryNameTooltipMode.get(), "onShiftAndDebug")
+        && isShiftKeyDown()
+        && isDebugMode()
+    ) {
+      e.getToolTip().add(registryTooltip);
     }
+
+
+    // Tooltip - Max Stack Size
+    int stackSize = e.getItemStack().getMaxStackSize();
+    if (stackSize > 0) {
+      ITextComponent stackSizeTooltip = new TranslationTextComponent("tooltip.jeiintegration.maxStackSize")
+        .appendSibling(new StringTextComponent(" " + itemStack.getMaxStackSize()))
+        .applyTextStyle(TextFormatting.DARK_GRAY);
+
+      if (Objects.equals(config.maxStackSizeTooltipMode.get(), "enabled")) {
+        e.getToolTip().add(stackSizeTooltip);
+      } else if (
+        Objects.equals(config.maxStackSizeTooltipMode.get(), "onShift")
+          && isShiftKeyDown()
+      ) {
+        e.getToolTip().add(stackSizeTooltip);
+      } else if (
+        Objects.equals(config.maxStackSizeTooltipMode.get(), "onDebug")
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(stackSizeTooltip);
+      } else if (
+        Objects.equals(config.maxStackSizeTooltipMode.get(), "onShiftAndDebug")
+          && isShiftKeyDown()
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(stackSizeTooltip);
+      }
+    }
+
+    // Tooltip - Translation Key
+    ITextComponent translationKeyTooltip = new TranslationTextComponent("tooltip.jeiintegration.translationKey")
+      .appendSibling(new StringTextComponent(" " + itemStack.getTranslationKey()))
+      .applyTextStyle(TextFormatting.DARK_GRAY);
+
+    if (Objects.equals(config.translationKeyTooltipMode.get(), "enabled")) {
+      e.getToolTip().add(translationKeyTooltip);
+    } else if (
+      Objects.equals(config.translationKeyTooltipMode.get(), "onShift")
+        && isShiftKeyDown()
+    ) {
+      e.getToolTip().add(translationKeyTooltip);
+    } else if (
+      Objects.equals(config.translationKeyTooltipMode.get(), "onDebug")
+        && isDebugMode()
+    ) {
+      e.getToolTip().add(translationKeyTooltip);
+    } else if (
+      Objects.equals(config.translationKeyTooltipMode.get(), "onShiftAndDebug")
+        && isShiftKeyDown()
+        && isDebugMode()
+    ) {
+      e.getToolTip().add(translationKeyTooltip);
+    }
+  }
 }
