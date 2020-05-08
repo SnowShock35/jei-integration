@@ -1,0 +1,112 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+    }
+}
+
+plugins {
+    id "com.matthewprenger.cursegradle" version "1.0.9"
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = version_major + "." + version_minor + "." + version_patch
+group = "com.snowshock35.jeiintegration" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "jeiintegration_" + mc_version
+
+//adds the build number to the end of the version string if on a build server
+if (System.getenv('TRAVIS_BUILD_NUMBER') != null) {
+    version += ".${System.getenv('TRAVIS_BUILD_NUMBER')}"
+}
+
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+    version = mc_version + "-" + forge_version
+    runDir = "run"
+    replace '@VERSION@', project.version
+    mappings = mcp_mappings
+    useDepAts = true
+}
+
+repositories {
+    maven {
+        name = "jei"
+        url =  "http://dvs1.progwml6.com/files/maven"
+    }
+}
+
+dependencies {
+    deobfCompile "mezz.jei:jei_${mc_version}:${version_jei}:api"
+    runtime "mezz.jei:jei_${mc_version}:${version_jei}"
+}
+
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mc_version", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.info'
+        expand 'version':project.version, 'mc_version':project.minecraft.version
+    }
+        
+    // copy everything else except the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude '**/*.info'
+    }
+}
+
+jar {
+    destinationDir = file (rootProject.getRootDir().getPath() + '/output')
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+    destinationDir = file (rootProject.getRootDir().getPath() + '/output')
+}
+
+task sourcesJar(type: Jar, dependsOn: 'sourceMainJava') {
+    from "build/sources/main"
+    from "build/resources/main"
+    classifier "sources"
+    destinationDir = file (rootProject.getRootDir().getPath() + '/output')
+}
+
+artifacts {
+    archives deobfJar, sourcesJar
+}
+
+curseforge {
+    apiKey = System.getenv('CURSE_KEY') == null ? '0' : System.getenv('CURSE_KEY')
+    project {
+        id = curse_project_id
+        changelog = System.getenv('CHANGELOG') == null ? '' : System.getenv('CHANGELOG')
+        changelogType = 'markdown'
+        releaseType =  'alpha'
+        mainArtifact (jar) {
+            displayName = "${jar.archiveName}".replace(".jar", "")
+            relations {
+                requiredLibrary 'just-enough-items-jei'
+            }
+        }
+        addArtifact (deobfJar) {
+            displayName = "${deobfJar.archiveName}".replace(".jar", "")
+        }
+        addArtifact (sourcesJar) {
+            displayName = "${sourcesJar.archiveName}".replace(".jar", "")
+        }
+    }
+}
