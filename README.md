@@ -28,11 +28,12 @@ The list of available tooltips is as follows:
 
 - **Burn Time** - Displays the number of ticks (20 ticks = 1 second) any burnable item in game will burn for.
 - **Durability** - Displays the durability of an item where applicable (e.g. tools, weapons, armour, etc). The tooltip shows both total durability and remaining durability.
-- **Hunger/Saturation** - Displays both the hunger and saturation values that the particular food item will restore. (As of version 3.1.0)
+- **Hunger/Saturation** - Displays both the hunger and saturation values that the particular food item will restore. (As of version 3.1.0.)
 - **Max Stack Size** - Displays the maximum stack size of an item - usually 64 but in some cases, like ender pearls, it's 16.
 - **NBT Data** - Displays all NBT data stored on a block/item e.g. enchantments.
 - **Registry Name** - Displays the block/item's internal ID, registry name or namespace name (e.g. minecraft:apple). While already available in the game (using `f3+h`), JEI Integration gives players more options as to how it appears in the tooltip.
-- **Translation Key** - Displays the translation key for a given block/item. E.g. block.minecraft.stone (Useful for mod translators)
+- **Tags** - Displays the tags for a given block/item. E.g. forge:storage_blocks, minecraft:planks. (As of version 3.1.0.)
+- **Translation Key** - Displays the translation key for a given block/item. E.g. block.minecraft.stone. (Useful for mod translators.)
 
 #### 1.14
 
