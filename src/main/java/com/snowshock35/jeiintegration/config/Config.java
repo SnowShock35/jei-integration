@@ -125,7 +125,7 @@ public class Config {
   }
 
   @SubscribeEvent
-  public static void onFileChange(final ModConfig.ConfigReloading configEvent) {
+  public static void onFileChange(final ModConfig.Reloading configEvent) {
     JEIIntegration.logger.debug("JEI Integration config just got changed on the file system!");
   }
 }
