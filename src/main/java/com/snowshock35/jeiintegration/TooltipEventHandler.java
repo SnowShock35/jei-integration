@@ -123,6 +123,38 @@ public class TooltipEventHandler {
       }
     }
 
+    // Tooltip - Hunger / Saturation
+    if (item.isFood()) {
+      int healVal = item.getFood().getHealing();
+      float satVal = healVal * (item.getFood().getSaturation() * 2);
+
+      ITextComponent foodTooltip = new TranslationTextComponent("tooltip.jeiintegration.hunger")
+        .appendSibling(new StringTextComponent(" " + healVal + " "))
+        .appendSibling(new TranslationTextComponent("tooltip.jeiintegration.saturation"))
+        .appendSibling(new StringTextComponent(" " + satVal))
+        .applyTextStyle(TextFormatting.DARK_GRAY);
+
+      if (Objects.equals(config.foodTooltipMode.get(), "enabled")) {
+        e.getToolTip().add(foodTooltip);
+      } else if (
+        Objects.equals(config.foodTooltipMode.get(), "onShift")
+          && isShiftKeyDown()
+      ) {
+        e.getToolTip().add(foodTooltip);
+      } else if (
+        Objects.equals(config.foodTooltipMode.get(), "onDebug")
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(foodTooltip);
+      } else if (
+        Objects.equals(config.foodTooltipMode.get(), "onShiftAndDebug")
+          && isShiftKeyDown()
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(foodTooltip);
+      }
+    }
+
     // Tooltip - NBT Data
     CompoundNBT nbtData = item.getShareTag(itemStack);
     if (nbtData != null) {

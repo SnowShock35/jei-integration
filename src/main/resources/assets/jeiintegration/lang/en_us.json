@@ -17,6 +17,8 @@
   "tooltip.jeiintegration.burnTime": "Burn Time:",
   "tooltip.jeiintegration.burnTime.suffix": "ticks",
   "tooltip.jeiintegration.durability": "Durability:",
+  "tooltip.jeiintegration.hunger": "Hunger:",
+  "tooltip.jeiintegration.saturation": "Saturation:",
   "tooltip.jeiintegration.maxStackSize": "Max Stack Size:",
   "tooltip.jeiintegration.nbtTagData": "NBT:",
   "tooltip.jeiintegration.registryName": "ID:",
