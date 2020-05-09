@@ -12,6 +12,7 @@
   "config.jeiintegration.tooltips.maxStackSizeTooltipMode": "Max Stack Size Tooltip",
   "config.jeiintegration.tooltips.nbtTooltipMode": "NBT Data Tooltip",
   "config.jeiintegration.tooltips.registryNameTooltipMode": "Registry Name Tooltip",
+  "config.jeiintegration.tooltips.tagsTooltipMode": "Tags Tooltip",
   "config.jeiintegration.tooltips.translationKeyTooltipMode": "Translation Key Tooltip",
 
   "_comment": "Tooltips",
@@ -23,5 +24,6 @@
   "tooltip.jeiintegration.maxStackSize": "Max Stack Size:",
   "tooltip.jeiintegration.nbtTagData": "NBT:",
   "tooltip.jeiintegration.registryName": "ID:",
+  "tooltip.jeiintegration.tags": "Tags:",
   "tooltip.jeiintegration.translationKey": "Translation Key:"
 }

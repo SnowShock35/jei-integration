@@ -45,6 +45,7 @@ public class Config {
   private static final String defaultMaxStackSizeTooltipMode = "disabled";
   private static final String defaultNbtTooltipMode = "disabled";
   private static final String defaultRegistryNameTooltipMode = "disabled";
+  private static final String defaultTagsTooltipMode = "disabled";
   private static final String defaultTranslationKeyTooltipMode = "disabled";
 
   private static final List<String> validOptions = Arrays.asList(
@@ -58,6 +59,7 @@ public class Config {
     public final ConfigValue<String> maxStackSizeTooltipMode;
     public final ConfigValue<String> nbtTooltipMode;
     public final ConfigValue<String> registryNameTooltipMode;
+    public final ConfigValue<String> tagsTooltipMode;
     public final ConfigValue<String> translationKeyTooltipMode;
 
     Client(ForgeConfigSpec.Builder builder) {
@@ -108,6 +110,11 @@ public class Config {
         .comment(" Configure tooltip for registry name. E.g. minecraft:stone")
         .translation("config.jeiintegration.tooltips.registryNameTooltipMode")
         .define("registryNameTooltipMode", defaultRegistryNameTooltipMode, string -> validOptions.contains(string));
+
+      tagsTooltipMode = builder
+        .comment(" Configure tooltip for tags. E.g. forge:ingot, minecraft:planks")
+        .translation("config.jeiintegration.tooltips.tagsTooltipMode")
+        .define("tagsTooltipMode", defaultTagsTooltipMode, string -> validOptions.contains(string));
 
       translationKeyTooltipMode = builder
         .comment(" Configure tooltip for translation key. E.g. block.minecraft.stone")

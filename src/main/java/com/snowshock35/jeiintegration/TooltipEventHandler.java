@@ -30,6 +30,7 @@ import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -39,7 +40,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class TooltipEventHandler {
 
@@ -241,6 +245,42 @@ public class TooltipEventHandler {
           && isDebugMode()
       ) {
         e.getToolTip().add(stackSizeTooltip);
+      }
+    }
+
+    // Tooltip - Tags
+    if (item.getTags().size() > 0) {
+      ITextComponent tagsTooltip = new TranslationTextComponent("tooltip.jeiintegration.tags")
+        .applyTextStyle(TextFormatting.DARK_GRAY);
+
+      List<ITextComponent> tags = new ArrayList<ITextComponent>();
+
+      for (ResourceLocation tag : item.getTags()) {
+        tags.add(new StringTextComponent("    " + tag).applyTextStyle(TextFormatting.DARK_GRAY));
+      }
+
+      if (Objects.equals(config.tagsTooltipMode.get(), "enabled")) {
+        e.getToolTip().add(tagsTooltip);
+        e.getToolTip().addAll(tags);
+      } else if (
+        Objects.equals(config.tagsTooltipMode.get(), "onShift")
+          && isShiftKeyDown()
+      ) {
+        e.getToolTip().add(tagsTooltip);
+        e.getToolTip().addAll(tags);
+      } else if (
+        Objects.equals(config.tagsTooltipMode.get(), "onDebug")
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(tagsTooltip);
+        e.getToolTip().addAll(tags);
+      } else if (
+        Objects.equals(config.tagsTooltipMode.get(), "onShiftAndDebug")
+          && isShiftKeyDown()
+          && isDebugMode()
+      ) {
+        e.getToolTip().add(tagsTooltip);
+        e.getToolTip().addAll(tags);
       }
     }
 
