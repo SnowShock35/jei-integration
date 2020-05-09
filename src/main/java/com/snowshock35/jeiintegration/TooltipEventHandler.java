@@ -38,6 +38,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class TooltipEventHandler {
@@ -56,6 +57,11 @@ public class TooltipEventHandler {
   @SubscribeEvent
   public void onItemTooltip(ItemTooltipEvent e) {
 
+    // Set number formatting to display large numbers more clearly
+    DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    decimalFormat.setGroupingUsed(true);
+    decimalFormat.setGroupingSize(3);
+
     // Retrieve the ItemStack and Item
     ItemStack itemStack = e.getItemStack();
     Item item = itemStack.getItem();
@@ -69,7 +75,7 @@ public class TooltipEventHandler {
     int burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(itemStack);
     if (burnTime > 0) {
       ITextComponent burnTooltip = new TranslationTextComponent("tooltip.jeiintegration.burnTime")
-        .appendSibling(new StringTextComponent(" " + burnTime + " "))
+        .appendSibling(new StringTextComponent(" " + decimalFormat.format(burnTime) + " "))
         .appendSibling(new TranslationTextComponent("tooltip.jeiintegration.burnTime.suffix"))
         .applyTextStyle(TextFormatting.DARK_GRAY);
 
