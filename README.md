@@ -4,8 +4,8 @@
 
 Providing Integrations & Tooltips
 
-[![Minecraft CurseForge Downloads (Total)](https://cf.way2muchnoise.eu/full_265917_downloads.svg?badge_style=for_the_badge)](https://curseforge.com/minecraft/mc-mods/jei-integration)
-[![Minecraft CurseForge Minecraft Versions](https://cf.way2muchnoise.eu/versions/265917.svg?badge_style=for_the_badge)](https://curseforge.com/minecraft/mc-mods/jei-integration)
+[![Minecraft CurseForge Downloads (Total)](http://cf.way2muchnoise.eu/full_265917_downloads.svg?badge_style=for_the_badge)](https://curseforge.com/minecraft/mc-mods/jei-integration)
+[![Minecraft CurseForge Minecraft Versions](http://cf.way2muchnoise.eu/versions/265917.svg?badge_style=for_the_badge)](https://curseforge.com/minecraft/mc-mods/jei-integration)
 
 [![Build Status](https://img.shields.io/travis/snowshock35/jei-integration/master?style=for-the-badge)](https://travis-ci.com/snowshock35/jei-integration)
 [![LICENSE](https://img.shields.io/github/license/snowshock35/jei-integration?style=for-the-badge)](https://github.com/snowshock35/jei-integration/blob/master/LICENSE)
