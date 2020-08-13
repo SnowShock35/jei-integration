@@ -79,9 +79,9 @@ public class TooltipEventHandler {
     int burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(itemStack);
     if (burnTime > 0) {
       ITextComponent burnTooltip = new TranslationTextComponent("tooltip.jeiintegration.burnTime")
-        .appendSibling(new StringTextComponent(" " + decimalFormat.format(burnTime) + " "))
-        .appendSibling(new TranslationTextComponent("tooltip.jeiintegration.burnTime.suffix"))
-        .applyTextStyle(TextFormatting.DARK_GRAY);
+        .append(new StringTextComponent(" " + decimalFormat.format(burnTime) + " "))
+        .append(new TranslationTextComponent("tooltip.jeiintegration.burnTime.suffix"))
+        .mergeStyle(TextFormatting.DARK_GRAY);
 
       if (Objects.equals(config.burnTimeTooltipMode.get(), "enabled")) {
         e.getToolTip().add(burnTooltip);
@@ -109,8 +109,8 @@ public class TooltipEventHandler {
     int currentDamage = maxDamage - itemStack.getDamage();
     if (maxDamage > 0) {
       ITextComponent durabilityTooltip = new TranslationTextComponent("tooltip.jeiintegration.durability")
-        .appendSibling(new StringTextComponent(" " + currentDamage + "/" + maxDamage))
-        .applyTextStyle(TextFormatting.DARK_GRAY);
+        .append(new StringTextComponent(" " + currentDamage + "/" + maxDamage))
+        .mergeStyle(TextFormatting.DARK_GRAY);
 
       if (Objects.equals(config.durabilityTooltipMode.get(), "enabled")) {
         e.getToolTip().add(1, durabilityTooltip);
@@ -139,10 +139,10 @@ public class TooltipEventHandler {
       float satVal = healVal * (item.getFood().getSaturation() * 2);
 
       ITextComponent foodTooltip = new TranslationTextComponent("tooltip.jeiintegration.hunger")
-        .appendSibling(new StringTextComponent(" " + healVal + " "))
-        .appendSibling(new TranslationTextComponent("tooltip.jeiintegration.saturation"))
-        .appendSibling(new StringTextComponent(" " + satVal))
-        .applyTextStyle(TextFormatting.DARK_GRAY);
+        .append(new StringTextComponent(" " + healVal + " "))
+        .append(new TranslationTextComponent("tooltip.jeiintegration.saturation"))
+        .append(new StringTextComponent(" " + satVal))
+        .mergeStyle(TextFormatting.DARK_GRAY);
 
       if (Objects.equals(config.foodTooltipMode.get(), "enabled")) {
         e.getToolTip().add(foodTooltip);
@@ -169,8 +169,8 @@ public class TooltipEventHandler {
     CompoundNBT nbtData = item.getShareTag(itemStack);
     if (nbtData != null) {
       ITextComponent nbtTooltip = new TranslationTextComponent("tooltip.jeiintegration.nbtTagData")
-        .appendSibling(new StringTextComponent(" " + nbtData))
-        .applyTextStyle(TextFormatting.DARK_GRAY);
+        .append(new StringTextComponent(" " + nbtData))
+        .mergeStyle(TextFormatting.DARK_GRAY);
 
       if (Objects.equals(config.nbtTooltipMode.get(), "enabled")) {
         e.getToolTip().add(nbtTooltip);
@@ -196,8 +196,8 @@ public class TooltipEventHandler {
 
     // Tooltip - Registry Name
     ITextComponent registryTooltip = new TranslationTextComponent("tooltip.jeiintegration.registryName")
-      .appendSibling(new StringTextComponent(" " + item.getRegistryName()))
-      .applyTextStyle(TextFormatting.DARK_GRAY);
+      .append(new StringTextComponent(" " + item.getRegistryName()))
+      .mergeStyle(TextFormatting.DARK_GRAY);
 
     if (Objects.equals(config.registryNameTooltipMode.get(), "enabled")) {
       e.getToolTip().add(registryTooltip);
@@ -224,8 +224,8 @@ public class TooltipEventHandler {
     int stackSize = e.getItemStack().getMaxStackSize();
     if (stackSize > 0) {
       ITextComponent stackSizeTooltip = new TranslationTextComponent("tooltip.jeiintegration.maxStackSize")
-        .appendSibling(new StringTextComponent(" " + itemStack.getMaxStackSize()))
-        .applyTextStyle(TextFormatting.DARK_GRAY);
+        .append(new StringTextComponent(" " + itemStack.getMaxStackSize()))
+        .mergeStyle(TextFormatting.DARK_GRAY);
 
       if (Objects.equals(config.maxStackSizeTooltipMode.get(), "enabled")) {
         e.getToolTip().add(stackSizeTooltip);
@@ -251,12 +251,12 @@ public class TooltipEventHandler {
     // Tooltip - Tags
     if (item.getTags().size() > 0) {
       ITextComponent tagsTooltip = new TranslationTextComponent("tooltip.jeiintegration.tags")
-        .applyTextStyle(TextFormatting.DARK_GRAY);
+        .mergeStyle(TextFormatting.DARK_GRAY);
 
       List<ITextComponent> tags = new ArrayList<ITextComponent>();
 
       for (ResourceLocation tag : item.getTags()) {
-        tags.add(new StringTextComponent("    " + tag).applyTextStyle(TextFormatting.DARK_GRAY));
+        tags.add(new StringTextComponent("    " + tag).mergeStyle(TextFormatting.DARK_GRAY));
       }
 
       if (Objects.equals(config.tagsTooltipMode.get(), "enabled")) {
@@ -286,8 +286,8 @@ public class TooltipEventHandler {
 
     // Tooltip - Translation Key
     ITextComponent translationKeyTooltip = new TranslationTextComponent("tooltip.jeiintegration.translationKey")
-      .appendSibling(new StringTextComponent(" " + itemStack.getTranslationKey()))
-      .applyTextStyle(TextFormatting.DARK_GRAY);
+      .append(new StringTextComponent(" " + itemStack.getTranslationKey()))
+      .mergeStyle(TextFormatting.DARK_GRAY);
 
     if (Objects.equals(config.translationKeyTooltipMode.get(), "enabled")) {
       e.getToolTip().add(translationKeyTooltip);

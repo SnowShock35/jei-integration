@@ -1,8 +1,8 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader = "javafml"
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-# Forge for 1.15.2 is version 31
-loaderVersion = "[31,)"
+# Forge for 1.16.1 is version 32
+loaderVersion = "[32,)"
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL = "https://github.com/snowshock35/jei-integration/issues"
 
@@ -28,20 +28,20 @@ issueTrackerURL = "https://github.com/snowshock35/jei-integration/issues"
 [[dependencies.jeiintegration]]
   modId="jei"
   mandatory=true
-  versionRange="[6,)"
+  versionRange="[7,)"
   ordering="NONE"
   side="BOTH"
 
 [[dependencies.jeiintegration]]
   modId="forge"
   mandatory=true
-  versionRange="[31,)"
+  versionRange="[32,)"
   ordering="NONE"
   side="BOTH"
 
   [[dependencies.jeiintegration]]
   modId="minecraft"
   mandatory=true
-  versionRange="[1.15.2]"
+  versionRange="[1.16.1]"
   ordering="NONE"
   side="BOTH"
