@@ -15,6 +15,7 @@ issueTrackerURL = "https://github.com/snowshock35/jei-integration/issues"
   logoFile = "logo.png"
   authors = "SnowShock35"
   credits = "Tonius for the original mod; NEI Integration."
+  license="MIT"
   description = """
   JEI Integration, the successor to NEI Integration by
   Tonius, is an addon for Just Enough Items (JEI) for
