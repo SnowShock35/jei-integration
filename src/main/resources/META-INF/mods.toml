@@ -1,11 +1,17 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader = "javafml"
+
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
 # Forge for 1.16.2 is version 33
 loaderVersion = "[33,)"
 
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL = "https://github.com/snowshock35/jei-integration/issues"
+
+# The license for you mod. This is mandatory metadata and allows for easier comprehension of your
+# redistributive properties. Review your options at https://choosealicense.com/. All rights
+# reserved is the default copyright stance, and is thus the default here.
+license="MIT"
 
 [[mods]]
   modId = "jeiintegration"
@@ -16,7 +22,6 @@ issueTrackerURL = "https://github.com/snowshock35/jei-integration/issues"
   logoFile = "logo.png"
   authors = "SnowShock35"
   credits = "Tonius for the original mod; NEI Integration."
-  license="MIT"
   description = """
   JEI Integration, the successor to NEI Integration by
   Tonius, is an addon for Just Enough Items (JEI) for
