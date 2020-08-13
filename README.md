@@ -9,7 +9,7 @@ Providing Integrations & Tooltips
 
 [![Build Status](https://img.shields.io/travis/snowshock35/jei-integration/master?style=for-the-badge)](https://travis-ci.com/snowshock35/jei-integration)
 [![LICENSE](https://img.shields.io/github/license/snowshock35/jei-integration?style=for-the-badge)](https://github.com/snowshock35/jei-integration/blob/master/LICENSE)
-[![Discord](https://img.shields.io/discord/284709326189494282?color=7289da&label=Discord&style=for-the-badge)](https://discord.gg/H4FUqrj)
+[![Discord](https://img.shields.io/discord/284709326189494282?color=7289da&label=Discord&style=for-the-badge)](https://discord.gg/r6xEGbz)
 
 ## Description
 
