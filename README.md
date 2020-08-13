@@ -21,16 +21,16 @@ JEI Integration is still in the development phase meaning some features of the o
 
 ### Tooltips
 
-Tooltips are extremely helpful to pack developers, mod developers and players for providing the player with helpful insights about a particular block/item's traits. By default JEI Integration tooltips come disabled as to allow you, the player or pack maker the control over what is shown and how.
+Tooltips are extremely helpful to pack developers, mod developers and players for providing the player with helpful insights about a particular block/item's traits. By default, JEI Integration tooltips come disabled as to allow you, the player or pack maker the control over what is shown and how.
 
 The list of available tooltips is as follows:
 
-#### 1.15
+#### 1.15 and Above
 
 - **Burn Time** - Displays the number of ticks (20 ticks = 1 second) any burnable item in game will burn for.
 - **Durability** - Displays the durability of an item where applicable (e.g. tools, weapons, armour, etc). The tooltip shows both total durability and remaining durability.
 - **Hunger/Saturation** - Displays both the hunger and saturation values that the particular food item will restore. (As of version 3.1.0.)
-- **Max Stack Size** - Displays the maximum stack size of an item - usually 64 but in some cases, like ender pearls, it's 16.
+- **Max Stack Size** - Displays the maximum stack size of an item - usually 64, but in some cases, like ender pearls, it's 16.
 - **NBT Data** - Displays all NBT data stored on a block/item e.g. enchantments.
 - **Registry Name** - Displays the block/item's internal ID, registry name or namespace name (e.g. minecraft:apple). While already available in the game (using `f3+h`), JEI Integration gives players more options as to how it appears in the tooltip.
 - **Tags** - Displays the tags for a given block/item. E.g. forge:storage_blocks, minecraft:planks. (As of version 3.1.0.)
@@ -40,7 +40,7 @@ The list of available tooltips is as follows:
 
 - **Burn Time** - Displays the number of ticks (20 ticks = 1 second) any burnable item in game will burn for.
 - **Durability** - Displays the durability of an item where applicable (e.g. tools, weapons, armour, etc). The tooltip shows both total durability and remaining durability.
-- **Max Stack Size** - Displays the maximum stack size of an item - usually 64 but in some cases, like ender pearls, it's 16.
+- **Max Stack Size** - Displays the maximum stack size of an item - usually 64, but in some cases, like ender pearls, it's 16.
 - **NBT Data** - Displays all NBT data stored on a block/item e.g. enchantments.
 - **Registry Name** - Displays the block/item's internal ID, registry name or namespace name (e.g. minecraft:apple). While already available in the game (using `f3+h`), JEI Integration gives players more options as to how it appears in the tooltip.
 - **Translation Key** - Displays the translation key for a given block/item. E.g. block.minecraft.stone (Useful for mod translators)
@@ -49,7 +49,7 @@ The list of available tooltips is as follows:
 
 - **Burn Time** - Displays the number of ticks (20 ticks = 1 second) any burnable item in game will burn for.
 - **Durability** - Displays the durability of an item where applicable (e.g. tools, weapons, armour, etc). The tooltip shows both total durability and remaining durability.
-- **Max Stack Size** - Displays the maximum stack size of an item - usually 64 but in some cases, like ender pearls, it's 16.
+- **Max Stack Size** - Displays the maximum stack size of an item - usually 64, but in some cases, like ender pearls, it's 16.
 - **Metadata** - Displays an block/item's metadata e.g. orange wool has metadata 1.
 - **NBT Data** - Displays all NBT data stored on a block/item e.g. enchantments.
 - **Ore Dictionary Entries** - Displays all ore dictionary entries for a given block/item e.g. logWood
@@ -92,7 +92,7 @@ Soon™
 
 ### I found a bug or want to request a feature, where do I do it?
 
-GitHub. Links at the top of this page
+GitHub. Links at the top of this page.
 
 ### Why?
 
@@ -100,11 +100,11 @@ Because.
 
 ## Release Notes
 
-Release Notes (or changelogs) for JEI Integration are automatically generated using Git commit messages and release notes are coupled with each release found under the [files tab](https://curseforge.com/minecraft/mc-mods/jei-integration/files).
+Release Notes (or changelogs) for JEI Integration generate automatically using Git commit messages and can be found under the [files tab](https://curseforge.com/minecraft/mc-mods/jei-integration/files) on CurseForge.
 
 ## Join our Discord
 
-Our Discord community is a great place to chat with others and get insight on SnowShock's latest mods and packs. [Join our Discord Server](https://discord.gg/H4FUqrj).
+Our Discord community is a great place to chat with others and get insight on SnowShock's latest mods and packs. [Join our Discord Server](https://discord.gg/r6xEGbz).
 
 [![Discord Server](https://cdn.snowshock35.com/misc/discord-logo_wordmark_black_sm.png)](https://discord.gg/H4FUqrj)
 
