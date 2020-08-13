@@ -40,273 +40,155 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class TooltipEventHandler {
 
-  private Config.Client config = Config.CLIENT;
+    private Config.Client config = Config.CLIENT;
 
-  private static boolean isDebugMode() {
-    return Minecraft.getInstance().gameSettings.advancedItemTooltips;
-  }
-
-  private static boolean isShiftKeyDown() {
-    return InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) ||
-      InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT);
-  }
-
-  @SubscribeEvent
-  public void onItemTooltip(ItemTooltipEvent e) {
-
-    // Set number formatting to display large numbers more clearly
-    DecimalFormat decimalFormat = new DecimalFormat("#.##");
-    decimalFormat.setGroupingUsed(true);
-    decimalFormat.setGroupingSize(3);
-
-    // Retrieve the ItemStack and Item
-    ItemStack itemStack = e.getItemStack();
-    Item item = itemStack.getItem();
-
-    // If item stack empty do nothing
-    if (e.getItemStack().isEmpty()) {
-      return;
+    private static boolean isDebugMode() {
+        return Minecraft.getInstance().gameSettings.advancedItemTooltips;
     }
 
-    // Tooltip - Burn Time
-    int burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(itemStack);
-    if (burnTime > 0) {
-      ITextComponent burnTooltip = new TranslationTextComponent("tooltip.jeiintegration.burnTime")
-        .append(new StringTextComponent(" " + decimalFormat.format(burnTime) + " "))
-        .append(new TranslationTextComponent("tooltip.jeiintegration.burnTime.suffix"))
-        .mergeStyle(TextFormatting.DARK_GRAY);
-
-      if (Objects.equals(config.burnTimeTooltipMode.get(), "enabled")) {
-        e.getToolTip().add(burnTooltip);
-      } else if (
-        Objects.equals(config.burnTimeTooltipMode.get(), "onShift")
-          && isShiftKeyDown()
-      ) {
-        e.getToolTip().add(burnTooltip);
-      } else if (
-        Objects.equals(config.burnTimeTooltipMode.get(), "onDebug")
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(burnTooltip);
-      } else if (
-        Objects.equals(config.burnTimeTooltipMode.get(), "onShiftAndDebug")
-          && isShiftKeyDown()
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(burnTooltip);
-      }
+    private static boolean isShiftKeyDown() {
+        return InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) ||
+                InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT);
     }
 
-    // Tooltip - Durability
-    int maxDamage = itemStack.getMaxDamage();
-    int currentDamage = maxDamage - itemStack.getDamage();
-    if (maxDamage > 0) {
-      ITextComponent durabilityTooltip = new TranslationTextComponent("tooltip.jeiintegration.durability")
-        .append(new StringTextComponent(" " + currentDamage + "/" + maxDamage))
-        .mergeStyle(TextFormatting.DARK_GRAY);
+    private void registerTooltip(ItemTooltipEvent e, ITextComponent tooltip, String configOption) {
+        boolean isEnabled = false;
 
-      if (Objects.equals(config.durabilityTooltipMode.get(), "enabled")) {
-        e.getToolTip().add(1, durabilityTooltip);
-      } else if (
-        Objects.equals(config.durabilityTooltipMode.get(), "onShift")
-          && isShiftKeyDown()
-      ) {
-        e.getToolTip().add(1, durabilityTooltip);
-      } else if (
-        Objects.equals(config.durabilityTooltipMode.get(), "onDebug")
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(1, durabilityTooltip);
-      } else if (
-        Objects.equals(config.durabilityTooltipMode.get(), "onShiftAndDebug")
-          && isShiftKeyDown()
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(1, durabilityTooltip);
-      }
+        if (Objects.equals(configOption, "enabled")) {
+            isEnabled = true;
+        } else if (
+                Objects.equals(configOption, "onShift")
+                        && isShiftKeyDown()
+        ) {
+            isEnabled = true;
+        } else if (
+                Objects.equals(configOption, "onDebug")
+                        && isDebugMode()
+        ) {
+            isEnabled = true;
+        } else if (
+                Objects.equals(configOption, "onShiftAndDebug")
+                        && isShiftKeyDown()
+                        && isDebugMode()
+        ) {
+            isEnabled = true;
+        }
+        if (isEnabled) {
+            e.getToolTip().add(tooltip);
+        }
     }
 
-    // Tooltip - Hunger / Saturation
-    if (item.isFood()) {
-      int healVal = item.getFood().getHealing();
-      float satVal = healVal * (item.getFood().getSaturation() * 2);
-
-      ITextComponent foodTooltip = new TranslationTextComponent("tooltip.jeiintegration.hunger")
-        .append(new StringTextComponent(" " + healVal + " "))
-        .append(new TranslationTextComponent("tooltip.jeiintegration.saturation"))
-        .append(new StringTextComponent(" " + satVal))
-        .mergeStyle(TextFormatting.DARK_GRAY);
-
-      if (Objects.equals(config.foodTooltipMode.get(), "enabled")) {
-        e.getToolTip().add(foodTooltip);
-      } else if (
-        Objects.equals(config.foodTooltipMode.get(), "onShift")
-          && isShiftKeyDown()
-      ) {
-        e.getToolTip().add(foodTooltip);
-      } else if (
-        Objects.equals(config.foodTooltipMode.get(), "onDebug")
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(foodTooltip);
-      } else if (
-        Objects.equals(config.foodTooltipMode.get(), "onShiftAndDebug")
-          && isShiftKeyDown()
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(foodTooltip);
-      }
+    private void registerTooltips(ItemTooltipEvent e, Collection<ITextComponent> tooltips, String configValue) {
+        for (ITextComponent tooltip : tooltips) {
+            registerTooltip(e, tooltip, configValue);
+        }
     }
 
-    // Tooltip - NBT Data
-    CompoundNBT nbtData = item.getShareTag(itemStack);
-    if (nbtData != null) {
-      ITextComponent nbtTooltip = new TranslationTextComponent("tooltip.jeiintegration.nbtTagData")
-        .append(new StringTextComponent(" " + nbtData))
-        .mergeStyle(TextFormatting.DARK_GRAY);
+    @SubscribeEvent
+    public void onItemTooltip(ItemTooltipEvent e) {
 
-      if (Objects.equals(config.nbtTooltipMode.get(), "enabled")) {
-        e.getToolTip().add(nbtTooltip);
-      } else if (
-        Objects.equals(config.nbtTooltipMode.get(), "onShift")
-          && isShiftKeyDown()
-      ) {
-        e.getToolTip().add(nbtTooltip);
-      } else if (
-        Objects.equals(config.nbtTooltipMode.get(), "onDebug")
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(nbtTooltip);
-      } else if (
-        Objects.equals(config.nbtTooltipMode.get(), "onShiftAndDebug")
-          && isShiftKeyDown()
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(nbtTooltip);
-      }
+        // Set number formatting to display large numbers more clearly
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        decimalFormat.setGroupingUsed(true);
+        decimalFormat.setGroupingSize(3);
+
+        // Retrieve the ItemStack and Item
+        ItemStack itemStack = e.getItemStack();
+        Item item = itemStack.getItem();
+
+        // If item stack empty do nothing
+        if (e.getItemStack().isEmpty()) {
+            return;
+        }
+
+        // Tooltip - Burn Time
+        int burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(itemStack);
+        if (burnTime > 0) {
+            ITextComponent burnTooltip = new TranslationTextComponent("tooltip.jeiintegration.burnTime")
+                    .append(new StringTextComponent(" " + decimalFormat.format(burnTime) + " "))
+                    .append(new TranslationTextComponent("tooltip.jeiintegration.burnTime.suffix"))
+                    .mergeStyle(TextFormatting.DARK_GRAY);
+
+            registerTooltip(e, burnTooltip, config.burnTimeTooltipMode.get());
+        }
+
+        // Tooltip - Durability
+        int maxDamage = itemStack.getMaxDamage();
+        int currentDamage = maxDamage - itemStack.getDamage();
+        if (maxDamage > 0) {
+            ITextComponent durabilityTooltip = new TranslationTextComponent("tooltip.jeiintegration.durability")
+                    .append(new StringTextComponent(" " + currentDamage + "/" + maxDamage))
+                    .mergeStyle(TextFormatting.DARK_GRAY);
+
+            registerTooltip(e, durabilityTooltip, config.durabilityTooltipMode.get());
+        }
+
+        // Tooltip - Hunger / Saturation
+        if (item.isFood()) {
+            int healVal = item.getFood().getHealing();
+            float satVal = healVal * (item.getFood().getSaturation() * 2);
+
+            ITextComponent foodTooltip = new TranslationTextComponent("tooltip.jeiintegration.hunger")
+                    .append(new StringTextComponent(" " + healVal + " "))
+                    .append(new TranslationTextComponent("tooltip.jeiintegration.saturation"))
+                    .append(new StringTextComponent(" " + decimalFormat.format(satVal)))
+                    .mergeStyle(TextFormatting.DARK_GRAY);
+
+            registerTooltip(e, foodTooltip, config.foodTooltipMode.get());
+        }
+
+        // Tooltip - NBT Data
+        CompoundNBT nbtData = item.getShareTag(itemStack);
+        if (nbtData != null) {
+            ITextComponent nbtTooltip = new TranslationTextComponent("tooltip.jeiintegration.nbtTagData")
+                    .append(new StringTextComponent(" " + nbtData))
+                    .mergeStyle(TextFormatting.DARK_GRAY);
+
+            registerTooltip(e, nbtTooltip, config.nbtTooltipMode.get());
+        }
+
+        // Tooltip - Registry Name
+        ITextComponent registryTooltip = new TranslationTextComponent("tooltip.jeiintegration.registryName")
+                .append(new StringTextComponent(" " + item.getRegistryName()))
+                .mergeStyle(TextFormatting.DARK_GRAY);
+
+        registerTooltip(e, registryTooltip, config.registryNameTooltipMode.get());
+
+
+        // Tooltip - Max Stack Size
+        int stackSize = e.getItemStack().getMaxStackSize();
+        if (stackSize > 0) {
+            ITextComponent stackSizeTooltip = new TranslationTextComponent("tooltip.jeiintegration.maxStackSize")
+                    .append(new StringTextComponent(" " + itemStack.getMaxStackSize()))
+                    .mergeStyle(TextFormatting.DARK_GRAY);
+
+            registerTooltip(e, stackSizeTooltip, config.maxStackSizeTooltipMode.get());
+        }
+
+        // Tooltip - Tags
+        if (item.getTags().size() > 0) {
+            ITextComponent tagsTooltip = new TranslationTextComponent("tooltip.jeiintegration.tags")
+                    .mergeStyle(TextFormatting.DARK_GRAY);
+
+            Set<ITextComponent> tags = new HashSet<ITextComponent>();
+
+            for (ResourceLocation tag : item.getTags()) {
+                tags.add(new StringTextComponent("    " + tag).mergeStyle(TextFormatting.DARK_GRAY));
+            }
+
+            registerTooltip(e, tagsTooltip, config.nbtTooltipMode.get());
+            registerTooltips(e, tags, config.nbtTooltipMode.get());
+        }
+
+        // Tooltip - Translation Key
+        ITextComponent translationKeyTooltip = new TranslationTextComponent("tooltip.jeiintegration.translationKey")
+                .append(new StringTextComponent(" " + itemStack.getTranslationKey()))
+                .mergeStyle(TextFormatting.DARK_GRAY);
+
+        registerTooltip(e, translationKeyTooltip, config.translationKeyTooltipMode.get());
     }
-
-
-    // Tooltip - Registry Name
-    ITextComponent registryTooltip = new TranslationTextComponent("tooltip.jeiintegration.registryName")
-      .append(new StringTextComponent(" " + item.getRegistryName()))
-      .mergeStyle(TextFormatting.DARK_GRAY);
-
-    if (Objects.equals(config.registryNameTooltipMode.get(), "enabled")) {
-      e.getToolTip().add(registryTooltip);
-    } else if (
-      Objects.equals(config.registryNameTooltipMode.get(), "onShift")
-        && isShiftKeyDown()
-    ) {
-      e.getToolTip().add(registryTooltip);
-    } else if (
-      Objects.equals(config.registryNameTooltipMode.get(), "onDebug")
-        && isDebugMode()
-    ) {
-      e.getToolTip().add(registryTooltip);
-    } else if (
-      Objects.equals(config.registryNameTooltipMode.get(), "onShiftAndDebug")
-        && isShiftKeyDown()
-        && isDebugMode()
-    ) {
-      e.getToolTip().add(registryTooltip);
-    }
-
-
-    // Tooltip - Max Stack Size
-    int stackSize = e.getItemStack().getMaxStackSize();
-    if (stackSize > 0) {
-      ITextComponent stackSizeTooltip = new TranslationTextComponent("tooltip.jeiintegration.maxStackSize")
-        .append(new StringTextComponent(" " + itemStack.getMaxStackSize()))
-        .mergeStyle(TextFormatting.DARK_GRAY);
-
-      if (Objects.equals(config.maxStackSizeTooltipMode.get(), "enabled")) {
-        e.getToolTip().add(stackSizeTooltip);
-      } else if (
-        Objects.equals(config.maxStackSizeTooltipMode.get(), "onShift")
-          && isShiftKeyDown()
-      ) {
-        e.getToolTip().add(stackSizeTooltip);
-      } else if (
-        Objects.equals(config.maxStackSizeTooltipMode.get(), "onDebug")
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(stackSizeTooltip);
-      } else if (
-        Objects.equals(config.maxStackSizeTooltipMode.get(), "onShiftAndDebug")
-          && isShiftKeyDown()
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(stackSizeTooltip);
-      }
-    }
-
-    // Tooltip - Tags
-    if (item.getTags().size() > 0) {
-      ITextComponent tagsTooltip = new TranslationTextComponent("tooltip.jeiintegration.tags")
-        .mergeStyle(TextFormatting.DARK_GRAY);
-
-      List<ITextComponent> tags = new ArrayList<ITextComponent>();
-
-      for (ResourceLocation tag : item.getTags()) {
-        tags.add(new StringTextComponent("    " + tag).mergeStyle(TextFormatting.DARK_GRAY));
-      }
-
-      if (Objects.equals(config.tagsTooltipMode.get(), "enabled")) {
-        e.getToolTip().add(tagsTooltip);
-        e.getToolTip().addAll(tags);
-      } else if (
-        Objects.equals(config.tagsTooltipMode.get(), "onShift")
-          && isShiftKeyDown()
-      ) {
-        e.getToolTip().add(tagsTooltip);
-        e.getToolTip().addAll(tags);
-      } else if (
-        Objects.equals(config.tagsTooltipMode.get(), "onDebug")
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(tagsTooltip);
-        e.getToolTip().addAll(tags);
-      } else if (
-        Objects.equals(config.tagsTooltipMode.get(), "onShiftAndDebug")
-          && isShiftKeyDown()
-          && isDebugMode()
-      ) {
-        e.getToolTip().add(tagsTooltip);
-        e.getToolTip().addAll(tags);
-      }
-    }
-
-    // Tooltip - Translation Key
-    ITextComponent translationKeyTooltip = new TranslationTextComponent("tooltip.jeiintegration.translationKey")
-      .append(new StringTextComponent(" " + itemStack.getTranslationKey()))
-      .mergeStyle(TextFormatting.DARK_GRAY);
-
-    if (Objects.equals(config.translationKeyTooltipMode.get(), "enabled")) {
-      e.getToolTip().add(translationKeyTooltip);
-    } else if (
-      Objects.equals(config.translationKeyTooltipMode.get(), "onShift")
-        && isShiftKeyDown()
-    ) {
-      e.getToolTip().add(translationKeyTooltip);
-    } else if (
-      Objects.equals(config.translationKeyTooltipMode.get(), "onDebug")
-        && isDebugMode()
-    ) {
-      e.getToolTip().add(translationKeyTooltip);
-    } else if (
-      Objects.equals(config.translationKeyTooltipMode.get(), "onShiftAndDebug")
-        && isShiftKeyDown()
-        && isDebugMode()
-    ) {
-      e.getToolTip().add(translationKeyTooltip);
-    }
-  }
 }
