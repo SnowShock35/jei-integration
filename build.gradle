@@ -50,17 +50,17 @@ minecraft {
   }
 }
 
-repositories {
-  maven {
-    name = "jei"
-    url =  "http://dvs1.progwml6.com/files/maven"
-  }
-}
+//repositories {
+//  maven {
+//    name = "jei"
+//    url =  "http://dvs1.progwml6.com/files/maven"
+//  }
+//}
 
 dependencies {
   minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-  compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${version_jei}:api")
-  runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${version_jei}")
+//  compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${version_jei}:api")
+//  runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${version_jei}")
 }
 
 jar {
