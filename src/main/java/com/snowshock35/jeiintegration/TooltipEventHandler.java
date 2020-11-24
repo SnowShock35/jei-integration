@@ -37,6 +37,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.apache.logging.log4j.Level;
 import org.lwjgl.glfw.GLFW;
 
 import java.text.DecimalFormat;
@@ -106,7 +107,13 @@ public class TooltipEventHandler {
         }
 
         // Tooltip - Burn Time
-        int burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(itemStack);
+        int burnTime = 0;
+        try {
+            burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(itemStack);
+        } catch (Exception ex) {
+            JEIIntegration.logger.log(Level.WARN, "):\n\nSomething went wrong!");
+        }
+
         if (burnTime > 0) {
             ITextComponent burnTooltip = new TranslationTextComponent("tooltip.jeiintegration.burnTime")
                     .append(new StringTextComponent(" " + decimalFormat.format(burnTime) + " "))
@@ -129,7 +136,7 @@ public class TooltipEventHandler {
 
         // Tooltip - Hunger / Saturation
         if (item.isFood()) {
-            int healVal = item.getFood().getHealing();
+            int healVal = Objects.requireNonNull(item.getFood()).getHealing();
             float satVal = healVal * (item.getFood().getSaturation() * 2);
 
             ITextComponent foodTooltip = new TranslationTextComponent("tooltip.jeiintegration.hunger")
