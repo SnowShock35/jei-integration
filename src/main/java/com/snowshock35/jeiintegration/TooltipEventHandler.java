@@ -187,8 +187,8 @@ public class TooltipEventHandler {
                 tags.add(new StringTextComponent("    " + tag).mergeStyle(TextFormatting.DARK_GRAY));
             }
 
-            registerTooltip(e, tagsTooltip, config.nbtTooltipMode.get());
-            registerTooltips(e, tags, config.nbtTooltipMode.get());
+            registerTooltip(e, tagsTooltip, config.tagsTooltipMode.get());
+            registerTooltips(e, tags, config.tagsTooltipMode.get());
         }
 
         // Tooltip - Translation Key
