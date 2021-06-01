@@ -1,0 +1,29 @@
+{
+  "_comment": "JEI Integration Language File",
+
+  "_comment": "Название языка: Русский (Russian)",
+  "_comment": "Регион языка: Российская Федерация (Russian Federation)",
+  "_comment": "Код языка: ru_ru",
+
+  "_comment": "Config",
+  "config.jeiintegration.tooltips.burnTimeTooltipMode": "Подсказка: Время горения",
+  "config.jeiintegration.tooltips.durabilityTooltipMode": "Подсказка: Прочность",
+  "config.jeiintegration.tooltips.foodTooltipMode": "Подсказка: Голод/Насыщение",
+  "config.jeiintegration.tooltips.maxStackSizeTooltipMode": "Подсказка: Размер максимального стэка",
+  "config.jeiintegration.tooltips.nbtTooltipMode": "Подсказка: Данные NBT",
+  "config.jeiintegration.tooltips.registryNameTooltipMode": "Подсказка: Название регистра",
+  "config.jeiintegration.tooltips.tagsTooltipMode": "Подсказка: Тэги",
+  "config.jeiintegration.tooltips.translationKeyTooltipMode": "Подсказка: Ключ перевода",
+
+  "_comment": "Tooltips",
+  "tooltip.jeiintegration.burnTime": "Время горения:",
+  "tooltip.jeiintegration.burnTime.suffix": "тика(ов)",
+  "tooltip.jeiintegration.durability": "Прочность:",
+  "tooltip.jeiintegration.hunger": "Голод:",
+  "tooltip.jeiintegration.saturation": "Насыщение:",
+  "tooltip.jeiintegration.maxStackSize": "Размер максимального стэка:",
+  "tooltip.jeiintegration.nbtTagData": "NBT:",
+  "tooltip.jeiintegration.registryName": "ID:",
+  "tooltip.jeiintegration.tags": "Тэги:",
+  "tooltip.jeiintegration.translationKey": "Ключ перевода:"
+}
