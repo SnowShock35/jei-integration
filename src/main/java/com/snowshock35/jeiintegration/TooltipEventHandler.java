@@ -135,8 +135,8 @@ public class TooltipEventHandler {
         }
 
         // Tooltip - Hunger / Saturation
-        if (item.isFood()) {
-            int healVal = Objects.requireNonNull(item.getFood()).getHealing();
+        if (item.isFood() && item.getFood() != null) {
+            int healVal = item.getFood().getHealing();
             float satVal = healVal * (item.getFood().getSaturation() * 2);
 
             ITextComponent foodTooltip = new TranslationTextComponent("tooltip.jeiintegration.hunger")
