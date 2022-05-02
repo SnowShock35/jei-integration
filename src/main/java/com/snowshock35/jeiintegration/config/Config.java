@@ -47,6 +47,7 @@ public class Config {
   private static final String defaultRegistryNameTooltipMode = "disabled";
   private static final String defaultTagsTooltipMode = "disabled";
   private static final String defaultTranslationKeyTooltipMode = "disabled";
+  private static final String defaultEnchantabilityTooltipMode = "disabled";
 
   private static final List<String> validOptions = Arrays.asList(
     "disabled", "enabled", "onShift", "onDebug", "onShiftAndDebug"
@@ -61,6 +62,7 @@ public class Config {
     public final ConfigValue<String> registryNameTooltipMode;
     public final ConfigValue<String> tagsTooltipMode;
     public final ConfigValue<String> translationKeyTooltipMode;
+    public final ConfigValue<String> enchantabilityTooltipMode;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment(CATEGORY_HANDLERS)
@@ -120,6 +122,11 @@ public class Config {
         .comment(" Configure tooltip for translation key. E.g. block.minecraft.stone")
         .translation("config.jeiintegration.tooltips.translationKeyTooltipMode")
         .define("translationKeyTooltipMode", defaultTranslationKeyTooltipMode, string -> validOptions.contains(string));
+
+      enchantabilityTooltipMode = builder
+        .comment(" Configure tooltip for enchantability. E.g. gold items - 22")
+        .translation("config.jeiintegration.tooltips.enchantabilityTooltipMode")
+        .define("enchantabilityTooltipMode", defaultEnchantabilityTooltipMode, string -> validOptions.contains(string));
 
       builder.pop();
     }

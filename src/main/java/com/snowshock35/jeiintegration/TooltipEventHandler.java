@@ -197,5 +197,15 @@ public class TooltipEventHandler {
                 .mergeStyle(TextFormatting.DARK_GRAY);
 
         registerTooltip(e, translationKeyTooltip, config.translationKeyTooltipMode.get());
+
+        // Tooltip - Enchantability
+        int enchantability = item.getItemEnchantability(itemStack);
+        if(enchantability > 0) {
+            ITextComponent enchantabilityKeyTooltip = new TranslationTextComponent("tooltip.jeiintegration.enchantability")
+                    .append(new StringTextComponent(" " + enchantability))
+                .mergeStyle(TextFormatting.DARK_GRAY);
+
+            registerTooltip(e, enchantabilityKeyTooltip, config.enchantabilityTooltipMode.get());
+        }
     }
 }

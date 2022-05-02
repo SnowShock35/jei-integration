@@ -14,6 +14,7 @@
   "config.jeiintegration.tooltips.registryNameTooltipMode": "Registry Name Tooltip",
   "config.jeiintegration.tooltips.tagsTooltipMode": "Tags Tooltip",
   "config.jeiintegration.tooltips.translationKeyTooltipMode": "Translation Key Tooltip",
+  "config.jeiintegration.tooltips.enchantabilityTooltipMode": "Enchantability Tooltip",
 
   "_comment": "Tooltips",
   "tooltip.jeiintegration.burnTime": "Burn Time:",
@@ -25,5 +26,6 @@
   "tooltip.jeiintegration.nbtTagData": "NBT:",
   "tooltip.jeiintegration.registryName": "ID:",
   "tooltip.jeiintegration.tags": "Tags:",
-  "tooltip.jeiintegration.translationKey": "Translation Key:"
+  "tooltip.jeiintegration.translationKey": "Translation Key:",
+  "tooltip.jeiintegration.enchantability": "Enchantability:"
 }
