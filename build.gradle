@@ -200,4 +200,8 @@ curseforge {
       }
     }
   }
+
+  options {
+    detectNewerJava = true
+  }
 }
