@@ -1,18 +1,19 @@
 buildscript {
   repositories {
+    jcenter()
     maven { url = "https://files.minecraftforge.net/maven" }
-    maven { url 'https://plugins.gradle.org/m2/' }
     mavenCentral()
   }
   dependencies {
     classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-    classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
   }
 }
 
+plugins {
+  id "com.matthewprenger.cursegradle" version "1.4.0"
+}
+
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'com.matthewprenger.cursegradle'
 apply plugin: 'maven-publish'
 
 version = "${version_major}.${version_minor}.${version_patch}"
@@ -190,7 +191,7 @@ curseforge {
     id = project.curse_project_id
     changelog = System.getenv('CHANGELOG') == null ? '' : System.getenv('CHANGELOG')
     changelogType = 'markdown'
-    releaseType =  'alpha'
+    releaseType = 'alpha'
     addGameVersion project.mc_version
 
     mainArtifact (jar) {
@@ -203,5 +204,9 @@ curseforge {
 
   options {
     detectNewerJava = true
+    javaVersionAutoDetect = true
+    detectNewerJava = true
+    javaIntegration = true
+    forgeGradleIntegration = true
   }
 }
