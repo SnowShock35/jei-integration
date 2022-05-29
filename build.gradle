@@ -192,8 +192,9 @@ curseforge {
     changelogType = 'markdown'
     releaseType =  'alpha'
     addGameVersion project.mc_version
+
     mainArtifact (jar) {
-      displayName = "${jar.archiveFileName}".replace(".jar", "")
+      displayName = "${jar.archiveFileName}"
       relations {
         requiredDependency 'jei'
       }
