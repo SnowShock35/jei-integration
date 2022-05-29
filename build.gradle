@@ -194,7 +194,7 @@ curseforge {
     addGameVersion project.mc_version
 
     mainArtifact (jar) {
-      displayName = "${jar.archiveName}".replace(".jar", "")
+      displayName = "${jar.archiveFileName.get()}".replace(".jar", "")
       relations {
         requiredDependency 'jei'
       }
