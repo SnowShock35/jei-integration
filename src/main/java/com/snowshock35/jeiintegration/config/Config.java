@@ -28,7 +28,7 @@ import com.snowshock35.jeiintegration.JEIIntegration;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Arrays;
@@ -134,12 +134,12 @@ public class Config {
   }
 
   @SubscribeEvent
-  public static void onLoad(final ModConfig.Loading configEvent) {
+  public static void onLoad(final ModConfigEvent.Loading configEvent) {
     JEIIntegration.logger.debug("Loaded JEI Integration config file {}", configEvent.getConfig().getFileName());
   }
 
   @SubscribeEvent
-  public static void onFileChange(final ModConfig.Reloading configEvent) {
+  public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
     JEIIntegration.logger.debug("JEI Integration config just got changed on the file system!");
   }
 }
