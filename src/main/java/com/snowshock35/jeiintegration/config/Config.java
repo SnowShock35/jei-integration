@@ -48,7 +48,7 @@ public class Config {
   private static final String defaultTagsTooltipMode = "disabled";
   private static final String defaultTranslationKeyTooltipMode = "disabled";
 
-  private static final List<String> validOptions = Arrays.asList(
+  private static final List<String> validOptions = List.of(
     "disabled", "enabled", "onShift", "onDebug", "onShiftAndDebug"
   );
 
@@ -84,42 +84,42 @@ public class Config {
       burnTimeTooltipMode = builder
         .comment(" Configure tooltip for burn time.")
         .translation("config.jeiintegration.tooltips.burnTimeTooltipMode")
-        .define("burnTimeTooltipMode", defaultBurnTimeTooltipMode, string -> validOptions.contains(string));
+        .define("burnTimeTooltipMode", defaultBurnTimeTooltipMode, o -> o instanceof String string && validOptions.contains(string));
 
       durabilityTooltipMode = builder
         .comment(" Configure tooltip for durability.")
         .translation("config.jeiintegration.tooltips.durabilityTooltipMode")
-        .define("durabilityTooltipMode", defaultDurabilityTooltipMode, string -> validOptions.contains(string));
+        .define("durabilityTooltipMode", defaultDurabilityTooltipMode, o -> o instanceof String string && validOptions.contains(string));
 
       foodTooltipMode = builder
         .comment(" Configure tooltip for hunger and saturation.")
         .translation("config.jeiintegration.tooltips.foodTooltipMode")
-        .define("foodTooltipMode", defaultFoodTooltipMode, string -> validOptions.contains(string));
+        .define("foodTooltipMode", defaultFoodTooltipMode, o -> o instanceof String string && validOptions.contains(string));
 
       maxStackSizeTooltipMode = builder
         .comment(" Configure tooltip for max stack size.")
         .translation("config.jeiintegration.tooltips.maxStackSizeTooltipMode")
-        .define("maxStackSizeTooltipMode", defaultMaxStackSizeTooltipMode, string -> validOptions.contains(string));
+        .define("maxStackSizeTooltipMode", defaultMaxStackSizeTooltipMode, o -> o instanceof String string && validOptions.contains(string));
 
       nbtTooltipMode = builder
         .comment(" Configure tooltip for NBT data.")
         .translation("config.jeiintegration.tooltips.nbtTooltipMode")
-        .define("nbtTooltipMode", defaultNbtTooltipMode, string -> validOptions.contains(string));
+        .define("nbtTooltipMode", defaultNbtTooltipMode, o -> o instanceof String string && validOptions.contains(string));
 
       registryNameTooltipMode = builder
         .comment(" Configure tooltip for registry name. E.g. minecraft:stone")
         .translation("config.jeiintegration.tooltips.registryNameTooltipMode")
-        .define("registryNameTooltipMode", defaultRegistryNameTooltipMode, string -> validOptions.contains(string));
+        .define("registryNameTooltipMode", defaultRegistryNameTooltipMode, o -> o instanceof String string && validOptions.contains(string));
 
       tagsTooltipMode = builder
         .comment(" Configure tooltip for tags. E.g. forge:ingot, minecraft:planks")
         .translation("config.jeiintegration.tooltips.tagsTooltipMode")
-        .define("tagsTooltipMode", defaultTagsTooltipMode, string -> validOptions.contains(string));
+        .define("tagsTooltipMode", defaultTagsTooltipMode, o -> o instanceof String string && validOptions.contains(string));
 
       translationKeyTooltipMode = builder
         .comment(" Configure tooltip for translation key. E.g. block.minecraft.stone")
         .translation("config.jeiintegration.tooltips.translationKeyTooltipMode")
-        .define("translationKeyTooltipMode", defaultTranslationKeyTooltipMode, string -> validOptions.contains(string));
+        .define("translationKeyTooltipMode", defaultTranslationKeyTooltipMode, o -> o instanceof String string && validOptions.contains(string));
 
       builder.pop();
     }
