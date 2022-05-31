@@ -1,6 +1,5 @@
 buildscript {
   repositories {
-    jcenter()
     maven { url = "https://files.minecraftforge.net/maven" }
     mavenCentral()
   }
@@ -26,7 +25,7 @@ if (System.getenv('TRAVIS_BUILD_NUMBER') != null) {
 }
 
 // Mojang ships Java 16 to end users in 1.17+ instead of Java 8 in 1.16 or lower, so your mod should target Java 16.
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -41,7 +40,7 @@ minecraft {
   //
   // Use non-default mappings at your own risk. They may not always work.
   // Simply re-run your setup task after changing the mappings to update your workspace.
-  mappings channel: 'official', version: '1.17.1'
+  mappings channel: 'official', version: "${mc_version}"
 
   // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
@@ -187,6 +186,14 @@ publishing {
 curseforge {
   apiKey = System.getenv('CURSE_KEY') == null ? '0' : System.getenv('CURSE_KEY')
 
+  options {
+    detectNewerJava = true
+    javaVersionAutoDetect = true
+    detectNewerJava = true
+    javaIntegration = true
+    forgeGradleIntegration = true
+  }
+
   project {
     id = project.curse_project_id
     changelog = System.getenv('CHANGELOG') == null ? '' : System.getenv('CHANGELOG')
@@ -201,12 +208,8 @@ curseforge {
       }
     }
   }
+}
 
-  options {
-    detectNewerJava = true
-    javaVersionAutoDetect = true
-    detectNewerJava = true
-    javaIntegration = true
-    forgeGradleIntegration = true
-  }
+tasks.withType(JavaCompile).configureEach {
+  options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }

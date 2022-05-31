@@ -27,6 +27,7 @@ package com.snowshock35.jeiintegration;
 import com.snowshock35.jeiintegration.config.Config;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -43,6 +44,8 @@ import org.lwjgl.glfw.GLFW;
 
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static net.minecraftforge.common.ForgeHooks.getBurnTime;
 
@@ -180,13 +183,13 @@ public class TooltipEventHandler {
         }
 
         // Tooltip - Tags
-        if (item.getTags().size() > 0) {
+        if (itemStack.getTags().toList().size() > 0) {
             Component tagsTooltip = new TranslatableComponent("tooltip.jeiintegration.tags")
                     .withStyle(ChatFormatting.DARK_GRAY);
 
-            Set<Component> tags = new HashSet<Component>();
+            Set<Component> tags = new HashSet<>();
 
-            for (ResourceLocation tag : item.getTags()) {
+            for (ResourceLocation tag : itemStack.getTags().map(TagKey::location).toList()) {
                 tags.add(new TextComponent("    " + tag).withStyle(ChatFormatting.DARK_GRAY));
             }
 
