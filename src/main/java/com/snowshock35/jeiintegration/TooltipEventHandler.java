@@ -28,6 +28,7 @@ import com.snowshock35.jeiintegration.config.Config;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -141,9 +142,10 @@ public class TooltipEventHandler {
         }
 
         // Tooltip - Hunger / Saturation
-        if (item.isEdible() && item.getFoodProperties() != null) {
-            int healVal = item.getFoodProperties().getNutrition();
-            float satVal = healVal * (item.getFoodProperties().getSaturationModifier() * 2);
+        FoodProperties foodProperties = item.getFoodProperties(itemStack, Minecraft.getInstance().player);
+        if (item.isEdible() && foodProperties != null) {
+            int healVal = foodProperties.getNutrition();
+            float satVal = healVal * (foodProperties.getSaturationModifier() * 2);
 
             Component foodTooltip = new TranslatableComponent("tooltip.jeiintegration.hunger")
                     .append(new TextComponent(" " + healVal + " "))
