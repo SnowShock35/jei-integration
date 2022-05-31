@@ -1,0 +1,29 @@
+{
+  "_comment": "JEI Integration Language File",
+
+  "_comment": "Language Name: Français",
+  "_comment": "Language Region: France",
+  "_comment": "Language Code: fr_fr",
+
+  "_comment": "Config",
+  "config.jeiintegration.tooltips.burnTimeTooltipMode": "Info-bulle de durée de combustion",
+  "config.jeiintegration.tooltips.durabilityTooltipMode": "Info-bulle de durabilité",
+  "config.jeiintegration.tooltips.foodTooltipMode": "Info-bulle Faim/Saturation",
+  "config.jeiintegration.tooltips.maxStackSizeTooltipMode": "Info-bulle Taille maximale de la pile",
+  "config.jeiintegration.tooltips.nbtTooltipMode": "Info-bulle des données NBT",
+  "config.jeiintegration.tooltips.registryNameTooltipMode": "Info-bulle du nom de registre",
+  "config.jeiintegration.tooltips.tagsTooltipMode": "Info-bulle de Tags",
+  "config.jeiintegration.tooltips.translationKeyTooltipMode": "Info-bulle de la clé de traduction",
+
+  "_comment": "Tooltips",
+  "tooltip.jeiintegration.burnTime": "Temps de combustion :",
+  "tooltip.jeiintegration.burnTime.suffix": "ticks",
+  "tooltip.jeiintegration.durability": "Durabilité :",
+  "tooltip.jeiintegration.hunger": "Faim :",
+  "tooltip.jeiintegration.saturation": "Saturation :",
+  "tooltip.jeiintegration.maxStackSize": "Taille maximale de la pile :",
+  "tooltip.jeiintegration.nbtTagData": "NBT :",
+  "tooltip.jeiintegration.registryName": "ID :",
+  "tooltip.jeiintegration.tags": "Tags :",
+  "tooltip.jeiintegration.translationKey": "Clé de traduction :"
+}
