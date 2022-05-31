@@ -141,6 +141,16 @@ public class TooltipEventHandler {
             registerTooltip(e, durabilityTooltip, config.durabilityTooltipMode.get());
         }
 
+        // Tooltip - Enchantability
+        int enchantability = item.getItemEnchantability(itemStack);
+        if (enchantability > 0) {
+            Component enchantabilityTooltip = new TranslatableComponent("tooltip.jeiintegration.enchantability")
+                    .append(new TextComponent(" " + enchantability))
+                    .withStyle(ChatFormatting.DARK_GRAY);
+
+            registerTooltip(e, enchantabilityTooltip, config.enchantabilityTooltipMode.get());
+        }
+
         // Tooltip - Hunger / Saturation
         FoodProperties foodProperties = item.getFoodProperties(itemStack, Minecraft.getInstance().player);
         if (item.isEdible() && foodProperties != null) {

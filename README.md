@@ -6,8 +6,9 @@ Providing Integrations & Tooltips
 
 [![Minecraft CurseForge Downloads (Total)](http://cf.way2muchnoise.eu/full_265917_downloads.svg?badge_style=for_the_badge)](https://curseforge.com/minecraft/mc-mods/jei-integration)
 [![Minecraft CurseForge Minecraft Versions](http://cf.way2muchnoise.eu/versions/265917.svg?badge_style=for_the_badge)](https://curseforge.com/minecraft/mc-mods/jei-integration)
-![Travis Build Status](https://img.shields.io/travis/com/snowshock35/jei-integration/default?logo=travis&style=for-the-badge)
-[![LICENSE](https://img.shields.io/github/license/snowshock35/jei-integration?logo=github&style=for-the-badge)](https://github.com/snowshock35/jei-integration/blob/master/LICENSE)
+
+[![Travis Build Status](https://img.shields.io/travis/com/snowshock35/jei-integration/default?logo=travis&style=for-the-badge)](https://app.travis-ci.com/SnowShock35/jei-integration)
+[![License](https://img.shields.io/github/license/snowshock35/jei-integration?logo=github&style=for-the-badge)](https://github.com/snowshock35/jei-integration/blob/master/LICENSE)
 [![Discord](https://img.shields.io/discord/284709326189494282?color=7289da&label=Discord&logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/r6xEGbz)
 
 ## Description
@@ -23,6 +24,18 @@ JEI Integration is still in the development phase meaning some features of the o
 Tooltips are extremely helpful to pack developers, mod developers and players for providing the player with helpful insights about a particular block/item's traits. By default, JEI Integration tooltips come disabled as to allow you, the player or pack maker the control over what is shown and how.
 
 The list of available tooltips is as follows:
+
+#### 1.18 and Above
+
+- **Burn Time** - Displays the number of ticks (20 ticks = 1 second) any burnable item in game will burn for.
+- **Durability** - Displays the durability of an item where applicable (e.g. tools, weapons, armour, etc). The tooltip shows both total durability and remaining durability.
+- **Enchantability** - Displays the enchantability of an item where applicable (e.g. tools, weapons, armour, etc.)
+- **Hunger/Saturation** - Displays both the hunger and saturation values that the particular food item will restore. (As of version 3.1.0.)
+- **Max Stack Size** - Displays the maximum stack size of an item - usually 64, but in some cases, like ender pearls, it's 16.
+- **NBT Data** - Displays all NBT data stored on a block/item e.g. enchantments.
+- **Registry Name** - Displays the block/item's internal ID, registry name or namespace name (e.g. minecraft:apple). While already available in the game (using `f3+h`), JEI Integration gives players more options as to how it appears in the tooltip.
+- **Tags** - Displays the tags for a given block/item. E.g. forge:storage_blocks, minecraft:planks. (As of version 3.1.0.)
+- **Translation Key** - Displays the translation key for a given block/item. E.g. block.minecraft.stone. (Useful for mod translators.)
 
 #### 1.15 and Above
 

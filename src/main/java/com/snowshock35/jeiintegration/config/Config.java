@@ -41,6 +41,7 @@ public class Config {
 
   private static final String defaultBurnTimeTooltipMode = "disabled";
   private static final String defaultDurabilityTooltipMode = "disabled";
+  private static final String defaultEnchantabilityTooltipMode = "disabled";
   private static final String defaultFoodTooltipMode = "disabled";
   private static final String defaultMaxStackSizeTooltipMode = "disabled";
   private static final String defaultNbtTooltipMode = "disabled";
@@ -55,6 +56,7 @@ public class Config {
   public static class Client {
     public final ConfigValue<String> burnTimeTooltipMode;
     public final ConfigValue<String> durabilityTooltipMode;
+    public final ConfigValue<String> enchantabilityTooltipMode;
     public final ConfigValue<String> foodTooltipMode;
     public final ConfigValue<String> maxStackSizeTooltipMode;
     public final ConfigValue<String> nbtTooltipMode;
@@ -90,6 +92,11 @@ public class Config {
         .comment(" Configure tooltip for durability.")
         .translation("config.jeiintegration.tooltips.durabilityTooltipMode")
         .define("durabilityTooltipMode", defaultDurabilityTooltipMode, o -> o instanceof String string && validOptions.contains(string));
+
+      enchantabilityTooltipMode = builder
+              .comment(" Configure tooltip for enchantability")
+              .translation("config.jeiintegration.tooltips.enchantabilityTooltipMode")
+              .define("enchantabilityTooltipMode", defaultEnchantabilityTooltipMode, o -> o instanceof String string && validOptions.contains(string));
 
       foodTooltipMode = builder
         .comment(" Configure tooltip for hunger and saturation.")
