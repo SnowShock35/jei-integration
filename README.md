@@ -7,7 +7,7 @@ Providing Integrations & Tooltips
 [![Minecraft CurseForge Downloads (Total)](http://cf.way2muchnoise.eu/full_265917_downloads.svg?badge_style=for_the_badge)](https://curseforge.com/minecraft/mc-mods/jei-integration)
 [![Minecraft CurseForge Minecraft Versions](http://cf.way2muchnoise.eu/versions/265917.svg?badge_style=for_the_badge)](https://curseforge.com/minecraft/mc-mods/jei-integration)
 
-[![Travis Build Status](https://img.shields.io/travis/com/snowshock35/jei-integration/default?logo=travis&style=for-the-badge)](https://app.travis-ci.com/SnowShock35/jei-integration)
+[![Travis Build Status](https://img.shields.io/travis/com/snowshock35/jei-integration/main?logo=travis&style=for-the-badge)](https://app.travis-ci.com/SnowShock35/jei-integration)
 [![License](https://img.shields.io/github/license/snowshock35/jei-integration?logo=github&style=for-the-badge)](https://github.com/snowshock35/jei-integration/blob/master/LICENSE)
 [![Discord](https://img.shields.io/discord/284709326189494282?color=7289da&label=Discord&logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/r6xEGbz)
 
