@@ -1,0 +1,31 @@
+{
+  "_comment": "JEI Integration Language File",
+
+  "_comment": "Language Name: Ukrainian",
+  "_comment": "Language Region: Ukraine",
+  "_comment": "Language Code: uk_ua",
+
+  "_comment": "Config",
+  "config.jeiintegration.tooltips.burnTimeTooltipMode": "Підказка для часу горіння",
+  "config.jeiintegration.tooltips.durabilityTooltipMode": "Підказка для міцності",
+  "config.jeiintegration.tooltips.enchantabilityTooltipMode": "Підказка для зачаровуваності",
+  "config.jeiintegration.tooltips.foodTooltipMode": "Підказка для голоду/насиченості",
+  "config.jeiintegration.tooltips.maxStackSizeTooltipMode": "Підказка для макс. розміру стака",
+  "config.jeiintegration.tooltips.nbtTooltipMode": "Підказка для NBT даних",
+  "config.jeiintegration.tooltips.registryNameTooltipMode": "Підказка для імені реєстру",
+  "config.jeiintegration.tooltips.tagsTooltipMode": "Підказка для тегів",
+  "config.jeiintegration.tooltips.translationKeyTooltipMode": "Підказка для ключа перекладу",
+
+  "_comment": "Tooltips",
+  "tooltip.jeiintegration.burnTime": "Час горіння:",
+  "tooltip.jeiintegration.burnTime.suffix": "тіків",
+  "tooltip.jeiintegration.durability": "Міцність:",
+  "tooltip.jeiintegration.enchantability": "Зачаровуваність:",
+  "tooltip.jeiintegration.hunger": "Голод:",
+  "tooltip.jeiintegration.saturation": "Насиченість:",
+  "tooltip.jeiintegration.maxStackSize": "Макс. розмір стака:",
+  "tooltip.jeiintegration.nbtTagData": "NBT:",
+  "tooltip.jeiintegration.registryName": "ID:",
+  "tooltip.jeiintegration.tags": "Теги:",
+  "tooltip.jeiintegration.translationKey": "Ключ перекладу:"
+}
