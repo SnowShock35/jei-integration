@@ -98,7 +98,7 @@ public class TooltipEventHandler {
         Item item = itemStack.getItem();
 
         // If item stack empty do nothing
-        if (e.getItemStack().isEmpty()) {
+        if (itemStack.isEmpty()) {
             return;
         }
 
@@ -174,7 +174,7 @@ public class TooltipEventHandler {
 
 
         // Tooltip - Max Stack Size
-        int stackSize = e.getItemStack().getMaxStackSize();
+        int stackSize = itemStack.getMaxStackSize();
         if (stackSize > 0) {
             Component stackSizeTooltip = Component.translatable("tooltip.jeiintegration.maxStackSize")
                     .append(Component.literal(" " + itemStack.getMaxStackSize()))
