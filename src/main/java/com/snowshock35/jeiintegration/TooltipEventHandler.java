@@ -184,11 +184,11 @@ public class TooltipEventHandler {
         }
 
         // Tooltip - Tags
-        if (itemStack.getTags().toList().size() > 0) {
+        if (itemStack.getTags().findAny().isPresent()) {
             Component tagsTooltip = Component.translatable("tooltip.jeiintegration.tags")
                     .withStyle(ChatFormatting.DARK_GRAY);
 
-            var tags = itemStack.getTags()
+            Set<MutableComponent> tags = itemStack.getTags()
                 .map(TagKey::location)
                 .map(tag -> Component.literal("    " + tag))
                 .map(tag -> tag.withStyle(ChatFormatting.DARK_GRAY))
