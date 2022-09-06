@@ -26,14 +26,15 @@ package com.snowshock35.jeiintegration;
 
 import com.snowshock35.jeiintegration.config.Config;
 import com.snowshock35.jeiintegration.config.Config.Mode;
+import java.util.stream.Collectors;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -56,8 +57,9 @@ public class TooltipEventHandler {
     }
 
     private static boolean isShiftKeyDown() {
-        return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT) ||
-                InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_RIGHT_SHIFT);
+        long window = Minecraft.getInstance().getWindow().getWindow();
+        return InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_SHIFT) ||
+                InputConstants.isKeyDown(window, GLFW.GLFW_KEY_RIGHT_SHIFT);
     }
 
     private void registerTooltip(ItemTooltipEvent e, Component tooltip, Mode mode) {
@@ -77,7 +79,7 @@ public class TooltipEventHandler {
         }
     }
 
-    private void registerTooltips(ItemTooltipEvent e, Collection<Component> tooltips, Mode mode) {
+    private void registerTooltips(ItemTooltipEvent e, Collection<MutableComponent> tooltips, Mode mode) {
         for (Component tooltip : tooltips) {
             registerTooltip(e, tooltip, mode);
         }
@@ -186,11 +188,11 @@ public class TooltipEventHandler {
             Component tagsTooltip = Component.translatable("tooltip.jeiintegration.tags")
                     .withStyle(ChatFormatting.DARK_GRAY);
 
-            Set<Component> tags = new HashSet<>();
-
-            for (ResourceLocation tag : itemStack.getTags().map(TagKey::location).toList()) {
-                tags.add(Component.literal("    " + tag).withStyle(ChatFormatting.DARK_GRAY));
-            }
+            var tags = itemStack.getTags()
+                .map(TagKey::location)
+                .map(tag -> Component.literal("    " + tag))
+                .map(tag -> tag.withStyle(ChatFormatting.DARK_GRAY))
+                .collect(Collectors.toSet());
 
             registerTooltip(e, tagsTooltip, config.tagsTooltipMode.get());
             registerTooltips(e, tags, config.tagsTooltipMode.get());

@@ -26,13 +26,10 @@ package com.snowshock35.jeiintegration.config;
 
 import com.snowshock35.jeiintegration.JEIIntegration;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.List;
 
 public class Config {
   static final String CATEGORY_HANDLERS = "Handler Settings";
@@ -40,7 +37,7 @@ public class Config {
   static final String CATEGORY_MISCELLANEOUS = "Miscellaneous Settings";
   
   public enum Mode {
-    DISABLED, ENABLED, ON_SHIFT, ON_DEBUG, ON_SHIFT_AND_DEBUG;
+    DISABLED, ENABLED, ON_SHIFT, ON_DEBUG, ON_SHIFT_AND_DEBUG
   }
 
   private static final Mode defaultBurnTimeTooltipMode = Mode.ON_DEBUG;
@@ -49,7 +46,7 @@ public class Config {
   private static final Mode defaultFoodTooltipMode = Mode.ON_DEBUG;
   private static final Mode defaultMaxStackSizeTooltipMode = Mode.ON_DEBUG;
   private static final Mode defaultNbtTooltipMode = Mode.ON_DEBUG;
-  private static final Mode defaultRegistryNameTooltipMode = Mode.ON_DEBUG;
+  private static final Mode defaultRegistryNameTooltipMode = Mode.DISABLED;
   private static final Mode defaultTagsTooltipMode = Mode.ON_DEBUG;
   private static final Mode defaultTranslationKeyTooltipMode = Mode.ON_DEBUG;
 
