@@ -24,33 +24,35 @@
 
 package com.snowshock35.jeiintegration;
 
+import static net.minecraftforge.common.ForgeHooks.getBurnTime;
+
+import com.mojang.blaze3d.platform.InputConstants;
 import com.snowshock35.jeiintegration.config.Config;
 import com.snowshock35.jeiintegration.config.Config.Mode;
-import java.util.stream.Collectors;
+import java.text.DecimalFormat;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 
-import java.text.DecimalFormat;
-import java.util.*;
-
-import static net.minecraftforge.common.ForgeHooks.getBurnTime;
-
 public class TooltipEventHandler {
 
+    private static final DecimalFormat DECIMALFORMAT = new DecimalFormat("#.##");
     private Config.Client config = Config.CLIENT;
+
+    static {
+        DECIMALFORMAT.setGroupingUsed(true);
+        DECIMALFORMAT.setGroupingSize(3);
+    }
 
     private static boolean isDebugMode() {
         return Minecraft.getInstance().options.advancedItemTooltips;
@@ -79,19 +81,8 @@ public class TooltipEventHandler {
         }
     }
 
-    private void registerTooltips(ItemTooltipEvent e, Collection<MutableComponent> tooltips, Mode mode) {
-        for (Component tooltip : tooltips) {
-            registerTooltip(e, tooltip, mode);
-        }
-    }
-
     @SubscribeEvent
     public void onItemTooltip(ItemTooltipEvent e) {
-
-        // Set number formatting to display large numbers more clearly
-        DecimalFormat decimalFormat = new DecimalFormat("#.##");
-        decimalFormat.setGroupingUsed(true);
-        decimalFormat.setGroupingSize(3);
 
         // Retrieve the ItemStack and Item
         ItemStack itemStack = e.getItemStack();
@@ -112,7 +103,7 @@ public class TooltipEventHandler {
 
         if (burnTime > 0) {
             Component burnTooltip = Component.translatable("tooltip.jeiintegration.burnTime")
-                    .append(" " + decimalFormat.format(burnTime) + " ")
+                    .append(" " + DECIMALFORMAT.format(burnTime) + " ")
                     .append(Component.translatable("tooltip.jeiintegration.burnTime.suffix"))
                     .withStyle(ChatFormatting.DARK_GRAY);
 
@@ -149,7 +140,7 @@ public class TooltipEventHandler {
             Component foodTooltip = Component.translatable("tooltip.jeiintegration.hunger")
                     .append(" " + healVal + " ")
                     .append(Component.translatable("tooltip.jeiintegration.saturation"))
-                    .append(" " + decimalFormat.format(satVal))
+                    .append(" " + DECIMALFORMAT.format(satVal))
                     .withStyle(ChatFormatting.DARK_GRAY);
 
             registerTooltip(e, foodTooltip, config.foodTooltipMode.get());
@@ -185,17 +176,17 @@ public class TooltipEventHandler {
 
         // Tooltip - Tags
         if (itemStack.getTags().findAny().isPresent()) {
+            Mode mode = config.tagsTooltipMode.get();
+
             Component tagsTooltip = Component.translatable("tooltip.jeiintegration.tags")
                     .withStyle(ChatFormatting.DARK_GRAY);
+            registerTooltip(e, tagsTooltip, mode);
 
-            Set<MutableComponent> tags = itemStack.getTags()
+            itemStack.getTags()
                 .map(TagKey::location)
                 .map(tag -> Component.literal("    " + tag))
                 .map(tag -> tag.withStyle(ChatFormatting.DARK_GRAY))
-                .collect(Collectors.toSet());
-
-            registerTooltip(e, tagsTooltip, config.tagsTooltipMode.get());
-            registerTooltips(e, tags, config.tagsTooltipMode.get());
+                .forEach(tooltip -> registerTooltip(e, tooltip, mode));
         }
 
         // Tooltip - Translation Key

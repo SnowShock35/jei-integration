@@ -41,7 +41,7 @@ import org.slf4j.Logger;
 public class JEIIntegration {
   public static final String MOD_ID = "jeiintegration";
 
-  public static Logger LOGGER = LogUtils.getLogger();;
+  public static final Logger LOGGER = LogUtils.getLogger();
 
   public JEIIntegration() {
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
