@@ -112,7 +112,7 @@ public class TooltipEventHandler {
 
         if (burnTime > 0) {
             Component burnTooltip = Component.translatable("tooltip.jeiintegration.burnTime")
-                    .append(Component.literal(" " + decimalFormat.format(burnTime) + " "))
+                    .append(" " + decimalFormat.format(burnTime) + " ")
                     .append(Component.translatable("tooltip.jeiintegration.burnTime.suffix"))
                     .withStyle(ChatFormatting.DARK_GRAY);
 
@@ -124,7 +124,7 @@ public class TooltipEventHandler {
         int currentDamage = maxDamage - itemStack.getDamageValue();
         if (maxDamage > 0) {
             Component durabilityTooltip = Component.translatable("tooltip.jeiintegration.durability")
-                    .append(Component.literal(" " + currentDamage + "/" + maxDamage))
+                    .append(" " + currentDamage + "/" + maxDamage)
                     .withStyle(ChatFormatting.DARK_GRAY);
 
             registerTooltip(e, durabilityTooltip, config.durabilityTooltipMode.get());
@@ -134,7 +134,7 @@ public class TooltipEventHandler {
         int enchantability = itemStack.getEnchantmentValue();
         if (enchantability > 0) {
             Component enchantabilityTooltip = Component.translatable("tooltip.jeiintegration.enchantability")
-                    .append(Component.literal(" " + enchantability))
+                    .append(" " + enchantability)
                     .withStyle(ChatFormatting.DARK_GRAY);
 
             registerTooltip(e, enchantabilityTooltip, config.enchantabilityTooltipMode.get());
@@ -147,9 +147,9 @@ public class TooltipEventHandler {
             float satVal = healVal * (foodProperties.getSaturationModifier() * 2);
 
             Component foodTooltip = Component.translatable("tooltip.jeiintegration.hunger")
-                    .append(Component.literal(" " + healVal + " "))
+                    .append(" " + healVal + " ")
                     .append(Component.translatable("tooltip.jeiintegration.saturation"))
-                    .append(Component.literal(" " + decimalFormat.format(satVal)))
+                    .append(" " + decimalFormat.format(satVal))
                     .withStyle(ChatFormatting.DARK_GRAY);
 
             registerTooltip(e, foodTooltip, config.foodTooltipMode.get());
@@ -159,7 +159,7 @@ public class TooltipEventHandler {
         CompoundTag nbtData = item.getShareTag(itemStack);
         if (nbtData != null) {
             Component nbtTooltip = Component.translatable("tooltip.jeiintegration.nbtTagData")
-                    .append(Component.literal(" " + nbtData))
+                    .append(" " + nbtData)
                     .withStyle(ChatFormatting.DARK_GRAY);
 
             registerTooltip(e, nbtTooltip, config.nbtTooltipMode.get());
@@ -167,7 +167,7 @@ public class TooltipEventHandler {
 
         // Tooltip - Registry Name
         Component registryTooltip = Component.translatable("tooltip.jeiintegration.registryName")
-                .append(Component.literal(" " + ForgeRegistries.ITEMS.getKey(item)))
+                .append(" " + ForgeRegistries.ITEMS.getKey(item))
                 .withStyle(ChatFormatting.DARK_GRAY);
 
         registerTooltip(e, registryTooltip, config.registryNameTooltipMode.get());
@@ -177,7 +177,7 @@ public class TooltipEventHandler {
         int stackSize = itemStack.getMaxStackSize();
         if (stackSize > 0) {
             Component stackSizeTooltip = Component.translatable("tooltip.jeiintegration.maxStackSize")
-                    .append(Component.literal(" " + stackSize))
+                    .append(" " + stackSize)
                     .withStyle(ChatFormatting.DARK_GRAY);
 
             registerTooltip(e, stackSizeTooltip, config.maxStackSizeTooltipMode.get());
