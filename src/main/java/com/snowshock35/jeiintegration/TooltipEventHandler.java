@@ -177,7 +177,7 @@ public class TooltipEventHandler {
         int stackSize = itemStack.getMaxStackSize();
         if (stackSize > 0) {
             Component stackSizeTooltip = Component.translatable("tooltip.jeiintegration.maxStackSize")
-                    .append(Component.literal(" " + itemStack.getMaxStackSize()))
+                    .append(Component.literal(" " + stackSize))
                     .withStyle(ChatFormatting.DARK_GRAY);
 
             registerTooltip(e, stackSizeTooltip, config.maxStackSizeTooltipMode.get());
