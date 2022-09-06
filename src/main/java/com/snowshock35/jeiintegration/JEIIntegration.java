@@ -24,6 +24,7 @@
 
 package com.snowshock35.jeiintegration;
 
+import com.mojang.logging.LogUtils;
 import com.snowshock35.jeiintegration.config.Config;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -34,14 +35,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkConstants;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 @Mod(JEIIntegration.MOD_ID)
 public class JEIIntegration {
   public static final String MOD_ID = "jeiintegration";
 
-  public static Logger logger = LogManager.getLogger();;
+  public static Logger LOGGER = LogUtils.getLogger();;
 
   public JEIIntegration() {
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);

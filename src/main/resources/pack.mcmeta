@@ -1,6 +1,8 @@
 {
    "pack": {
-      "pack_format": 8,
-      "description": "JEI Integration Resource Pack"
+      "pack_format": 9,
+      "description": "JEI Integration Resource Pack",
+      "forge:resource_pack_format": 9,
+      "forge:data_pack_format": 10
    }
 }
