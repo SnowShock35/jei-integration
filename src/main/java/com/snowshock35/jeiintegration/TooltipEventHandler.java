@@ -179,9 +179,16 @@ public class TooltipEventHandler {
 
             itemStack.getTags()
                 .map(TagKey::location)
+                .sorted((rl1, rl2) -> {
+                    String namespaceRl1 = rl1.getNamespace();
+                    String namespaceRl2 = rl2.getNamespace();
+                    if (namespaceRl1.equals("minecraft") && !namespaceRl2.equals("minecraft")) return -1;
+                    if (namespaceRl2.equals("minecraft") && !namespaceRl1.equals("minecraft")) return 1;
+                    return rl1.toString().compareTo(rl2.toString());
+                })
                 .map(tag -> Component.literal("    " + tag))
                 .map(tag -> tag.withStyle(ChatFormatting.DARK_GRAY))
-                .forEach(tooltip -> registerTooltip(e, tooltip, mode));
+                .forEachOrdered(tooltip -> registerTooltip(e, tooltip, mode));
         }
 
         // Tooltip - Translation Key
