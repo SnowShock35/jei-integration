@@ -35,6 +35,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -47,7 +48,6 @@ import org.lwjgl.glfw.GLFW;
 public class TooltipEventHandler {
 
     private static final DecimalFormat DECIMALFORMAT = new DecimalFormat("#.##");
-    private Config.Client config = Config.CLIENT;
 
     static {
         DECIMALFORMAT.setGroupingUsed(true);
@@ -65,17 +65,13 @@ public class TooltipEventHandler {
     }
 
     private void registerTooltip(ItemTooltipEvent e, Component tooltip, Mode mode) {
-        boolean isEnabled = false;
-
-        if (mode.equals(Mode.ENABLED)) {
-            isEnabled = true;
-        } else if (mode.equals(Mode.ON_SHIFT) && isShiftKeyDown()) {
-            isEnabled = true;
-        } else if (mode.equals(Mode.ON_DEBUG) && isDebugMode()) {
-            isEnabled = true;
-        } else if (mode.equals(Mode.ON_SHIFT_AND_DEBUG) && isShiftKeyDown() && isDebugMode()) {
-            isEnabled = true;
-        }
+        boolean isEnabled = switch (mode) {
+            case DISABLED -> false;
+            case ENABLED -> true;
+            case ON_SHIFT -> isShiftKeyDown();
+            case ON_DEBUG -> isDebugMode();
+            case ON_SHIFT_AND_DEBUG -> isShiftKeyDown() && isDebugMode();
+        };
         if (isEnabled) {
             e.getToolTip().add(tooltip);
         }
@@ -83,10 +79,9 @@ public class TooltipEventHandler {
 
     @SubscribeEvent
     public void onItemTooltip(ItemTooltipEvent e) {
-
-        // Retrieve the ItemStack and Item
         ItemStack itemStack = e.getItemStack();
         Item item = itemStack.getItem();
+        Player player = e.getEntity();
 
         // If item stack empty do nothing
         if (itemStack.isEmpty()) {
@@ -107,7 +102,7 @@ public class TooltipEventHandler {
                     .append(Component.translatable("tooltip.jeiintegration.burnTime.suffix"))
                     .withStyle(ChatFormatting.DARK_GRAY);
 
-            registerTooltip(e, burnTooltip, config.burnTimeTooltipMode.get());
+            registerTooltip(e, burnTooltip, Config.CLIENT.burnTimeTooltipMode.get());
         }
 
         // Tooltip - Durability
@@ -118,7 +113,7 @@ public class TooltipEventHandler {
                     .append(" " + currentDamage + "/" + maxDamage)
                     .withStyle(ChatFormatting.DARK_GRAY);
 
-            registerTooltip(e, durabilityTooltip, config.durabilityTooltipMode.get());
+            registerTooltip(e, durabilityTooltip, Config.CLIENT.durabilityTooltipMode.get());
         }
 
         // Tooltip - Enchantability
@@ -128,11 +123,11 @@ public class TooltipEventHandler {
                     .append(" " + enchantability)
                     .withStyle(ChatFormatting.DARK_GRAY);
 
-            registerTooltip(e, enchantabilityTooltip, config.enchantabilityTooltipMode.get());
+            registerTooltip(e, enchantabilityTooltip, Config.CLIENT.enchantabilityTooltipMode.get());
         }
 
         // Tooltip - Hunger / Saturation
-        FoodProperties foodProperties = item.getFoodProperties(itemStack, Minecraft.getInstance().player);
+        FoodProperties foodProperties = item.getFoodProperties(itemStack, player);
         if (item.isEdible() && foodProperties != null) {
             int healVal = foodProperties.getNutrition();
             float satVal = healVal * (foodProperties.getSaturationModifier() * 2);
@@ -143,7 +138,7 @@ public class TooltipEventHandler {
                     .append(" " + DECIMALFORMAT.format(satVal))
                     .withStyle(ChatFormatting.DARK_GRAY);
 
-            registerTooltip(e, foodTooltip, config.foodTooltipMode.get());
+            registerTooltip(e, foodTooltip, Config.CLIENT.foodTooltipMode.get());
         }
 
         // Tooltip - NBT Data
@@ -153,7 +148,7 @@ public class TooltipEventHandler {
                     .append(" " + nbtData)
                     .withStyle(ChatFormatting.DARK_GRAY);
 
-            registerTooltip(e, nbtTooltip, config.nbtTooltipMode.get());
+            registerTooltip(e, nbtTooltip, Config.CLIENT.nbtTooltipMode.get());
         }
 
         // Tooltip - Registry Name
@@ -161,7 +156,7 @@ public class TooltipEventHandler {
                 .append(" " + ForgeRegistries.ITEMS.getKey(item))
                 .withStyle(ChatFormatting.DARK_GRAY);
 
-        registerTooltip(e, registryTooltip, config.registryNameTooltipMode.get());
+        registerTooltip(e, registryTooltip, Config.CLIENT.registryNameTooltipMode.get());
 
 
         // Tooltip - Max Stack Size
@@ -171,12 +166,12 @@ public class TooltipEventHandler {
                     .append(" " + stackSize)
                     .withStyle(ChatFormatting.DARK_GRAY);
 
-            registerTooltip(e, stackSizeTooltip, config.maxStackSizeTooltipMode.get());
+            registerTooltip(e, stackSizeTooltip, Config.CLIENT.maxStackSizeTooltipMode.get());
         }
 
         // Tooltip - Tags
         if (itemStack.getTags().findAny().isPresent()) {
-            Mode mode = config.tagsTooltipMode.get();
+            Mode mode = Config.CLIENT.tagsTooltipMode.get();
 
             Component tagsTooltip = Component.translatable("tooltip.jeiintegration.tags")
                     .withStyle(ChatFormatting.DARK_GRAY);
@@ -194,6 +189,6 @@ public class TooltipEventHandler {
                 .append(Component.literal(" " + itemStack.getDescriptionId()))
                 .withStyle(ChatFormatting.DARK_GRAY);
 
-        registerTooltip(e, translationKeyTooltip, config.translationKeyTooltipMode.get());
+        registerTooltip(e, translationKeyTooltip, Config.CLIENT.translationKeyTooltipMode.get());
     }
 }

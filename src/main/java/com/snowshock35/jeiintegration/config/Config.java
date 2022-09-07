@@ -32,9 +32,9 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class Config {
-  static final String CATEGORY_HANDLERS = "Handler Settings";
-  static final String CATEGORY_TOOLTIPS = "Tooltip Settings";
-  static final String CATEGORY_MISCELLANEOUS = "Miscellaneous Settings";
+  private static final String CATEGORY_HANDLERS = "Handler Settings";
+  private static final String CATEGORY_TOOLTIPS = "Tooltip Settings";
+  private static final String CATEGORY_MISCELLANEOUS = "Miscellaneous Settings";
   
   public enum Mode {
     DISABLED, ENABLED, ON_SHIFT, ON_DEBUG, ON_SHIFT_AND_DEBUG
@@ -127,11 +127,11 @@ public class Config {
     }
   }
 
-  public static final ForgeConfigSpec clientSpec;
+  public static final ForgeConfigSpec CLIENT_SPEC;
   public static final Config.Client CLIENT;
   static {
     final Pair<Config.Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Config.Client::new);
-    clientSpec = specPair.getRight();
+    CLIENT_SPEC = specPair.getRight();
     CLIENT = specPair.getLeft();
   }
 

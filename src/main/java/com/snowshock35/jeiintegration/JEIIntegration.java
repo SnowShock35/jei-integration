@@ -44,7 +44,7 @@ public class JEIIntegration {
   public static final Logger LOGGER = LogUtils.getLogger();
 
   public JEIIntegration() {
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
     FMLJavaModLoadingContext.get().getModEventBus().register(Config.class);
 
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
