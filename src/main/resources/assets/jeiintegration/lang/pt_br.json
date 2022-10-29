@@ -1,0 +1,31 @@
+{
+    "_comment": "JEI Integration Language File",
+  
+    "_comment": "Language Name: Portuguese",
+    "_comment": "Language Region: Portuguese Brazilians",
+    "_comment": "Language Code: pt_br",
+  
+    "_comment": "Config",
+    "config.jeiintegration.tooltips.burnTimeTooltipMode": "Dica de ferramenta de tempo de gravação",
+    "config.jeiintegration.tooltips.durabilityTooltipMode": "Dica de durabilidade",
+    "config.jeiintegration.tooltips.enchantabilityTooltipMode": "Dica de Encantabilidade",
+    "config.jeiintegration.tooltips.foodTooltipMode": "Dica de ferramenta de fome/saturação",
+    "config.jeiintegration.tooltips.maxStackSizeTooltipMode": "Dica de tamanho máximo da pilha",
+    "config.jeiintegration.tooltips.nbtTooltipMode": "Dica de dados NBT",
+    "config.jeiintegration.tooltips.registryNameTooltipMode": "Dica de ferramenta de nome de registro",
+    "config.jeiintegration.tooltips.tagsTooltipMode": "Dica de ferramenta de tags",
+    "config.jeiintegration.tooltips.translationKeyTooltipMode": "Dica de chave de tradução",
+  
+    "_comment": "Tooltips",
+    "tooltip.jeiintegration.burnTime": "Tempo de queima:",
+    "tooltip.jeiintegration.burnTime.suffix": "ticks",
+    "tooltip.jeiintegration.durability": "Durabilidade:",
+    "tooltip.jeiintegration.enchantability": "Encantamento:",
+    "tooltip.jeiintegration.hunger": "Fome:",
+    "tooltip.jeiintegration.saturation": "Saturação:",
+    "tooltip.jeiintegration.maxStackSize": "Tamanho máximo da pilha:",
+    "tooltip.jeiintegration.nbtTagData": "NBT:",
+    "tooltip.jeiintegration.registryName": "ID:",
+    "tooltip.jeiintegration.tags": "Tags:",
+    "tooltip.jeiintegration.translationKey": "Chave de tradução:"
+  }
