@@ -28,7 +28,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.snowshock35.jeiintegration.config.Config;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -39,6 +38,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.Level;
 import org.lwjgl.glfw.GLFW;
 
@@ -178,7 +178,7 @@ public class TooltipEventHandler {
 
         // Tooltip - Registry Name
         Component registryTooltip = Component.translatable("tooltip.jeiintegration.registryName")
-                .append(Component.literal(" " + Registry.ITEM.getKey(item)))
+                .append(Component.literal(" " + ForgeRegistries.ITEMS.getKey(item)))
                 .withStyle(ChatFormatting.DARK_GRAY);
 
         registerTooltip(e, registryTooltip, config.registryNameTooltipMode.get());
