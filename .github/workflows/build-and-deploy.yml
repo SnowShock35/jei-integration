@@ -1,0 +1,61 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: '17'
+
+    - name: Make Gradlew executable and clean
+      run: |
+        chmod a+x gradlew
+        ./gradlew clean
+
+    - name: Build with Gradle
+      run: ./gradlew build
+
+    - name: After Success
+      if: github.event_name == 'push' && github.event.pull_request == null
+      run: ./gradlew curseforge
+      env:
+        CURSE_KEY: ${{ secrets.CF_TOKEN }}
+        
+
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: Upload Cache if changed
+      if: success() && github.event_name == 'push'
+      uses: actions/upload-artifact@v2
+      with:
+        name: gradle-cache
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+
+    - name: Remove unnecessary cache artifacts
+      if: always()
+      run: rm -rf ${{ runner.workspace }}/.gradle/caches
+
+    - name: Cleanup Gradle
+      if: always()
+      run: ./gradlew --stop
