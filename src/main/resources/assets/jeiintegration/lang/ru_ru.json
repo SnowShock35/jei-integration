@@ -16,14 +16,13 @@
   "config.jeiintegration.tooltips.translationKeyTooltipMode": "Подсказка ключа перевода",
 
   "_comment": "Tooltips",
-  "tooltip.jeiintegration.burnTime": "Время горения:",
-  "tooltip.jeiintegration.burnTime.suffix": "тактов",
-  "tooltip.jeiintegration.durability": "Прочность:",
-  "tooltip.jeiintegration.hunger": "Голод:",
-  "tooltip.jeiintegration.saturation": "Насыщение:",
-  "tooltip.jeiintegration.maxStackSize": "Макс. размер стака:",
-  "tooltip.jeiintegration.nbtTagData": "NBT:",
-  "tooltip.jeiintegration.registryName": "ID:",
+  "tooltip.jeiintegration.burnTime": "Время горения: %s тактов",
+  "tooltip.jeiintegration.durability": "Прочность: %s/%s",
+  "tooltip.jeiintegration.hunger": "Голод: %s",
+  "tooltip.jeiintegration.saturation": "Насыщение: %s",
+  "tooltip.jeiintegration.maxStackSize": "Макс. размер стака: %s",
+  "tooltip.jeiintegration.nbtTagData": "NBT: %s",
+  "tooltip.jeiintegration.registryName": "ID: %s",
   "tooltip.jeiintegration.tags": "Теги:",
-  "tooltip.jeiintegration.translationKey": "Ключ перевода:"
+  "tooltip.jeiintegration.translationKey": "Ключ перевода: %s"
 }

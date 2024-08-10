@@ -16,14 +16,13 @@
   "config.jeiintegration.tooltips.translationKeyTooltipMode": "Info-bulle de la clé de traduction",
 
   "_comment": "Tooltips",
-  "tooltip.jeiintegration.burnTime": "Temps de combustion :",
-  "tooltip.jeiintegration.burnTime.suffix": "ticks",
-  "tooltip.jeiintegration.durability": "Durabilité :",
-  "tooltip.jeiintegration.hunger": "Faim :",
-  "tooltip.jeiintegration.saturation": "Saturation :",
-  "tooltip.jeiintegration.maxStackSize": "Taille maximale de la pile :",
-  "tooltip.jeiintegration.nbtTagData": "NBT :",
-  "tooltip.jeiintegration.registryName": "ID :",
+  "tooltip.jeiintegration.burnTime": "Temps de combustion : %s ticks",
+  "tooltip.jeiintegration.durability": "Durabilité : %s/%s",
+  "tooltip.jeiintegration.hunger": "Faim : %s",
+  "tooltip.jeiintegration.saturation": "Saturation : %s",
+  "tooltip.jeiintegration.maxStackSize": "Taille maximale de la pile : %s",
+  "tooltip.jeiintegration.nbtTagData": "NBT : %s",
+  "tooltip.jeiintegration.registryName": "ID : %s",
   "tooltip.jeiintegration.tags": "Tags :",
-  "tooltip.jeiintegration.translationKey": "Clé de traduction :"
+  "tooltip.jeiintegration.translationKey": "Clé de traduction : %s"
 }

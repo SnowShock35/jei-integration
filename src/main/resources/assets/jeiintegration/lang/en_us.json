@@ -17,15 +17,14 @@
   "config.jeiintegration.tooltips.translationKeyTooltipMode": "Translation Key Tooltip",
 
   "_comment": "Tooltips",
-  "tooltip.jeiintegration.burnTime": "Burn Time:",
-  "tooltip.jeiintegration.burnTime.suffix": "ticks",
-  "tooltip.jeiintegration.durability": "Durability:",
-  "tooltip.jeiintegration.enchantability": "Enchantability:",
-  "tooltip.jeiintegration.hunger": "Hunger:",
-  "tooltip.jeiintegration.saturation": "Saturation:",
-  "tooltip.jeiintegration.maxStackSize": "Max Stack Size:",
-  "tooltip.jeiintegration.nbtTagData": "NBT:",
-  "tooltip.jeiintegration.registryName": "ID:",
+  "tooltip.jeiintegration.burnTime": "Burn Time: %s ticks",
+  "tooltip.jeiintegration.durability": "Durability: %s/%s",
+  "tooltip.jeiintegration.enchantability": "Enchantability: %s",
+  "tooltip.jeiintegration.hunger": "Hunger: %s",
+  "tooltip.jeiintegration.saturation": "Saturation: %s",
+  "tooltip.jeiintegration.maxStackSize": "Max Stack Size: %s",
+  "tooltip.jeiintegration.nbtTagData": "NBT: %s",
+  "tooltip.jeiintegration.registryName": "ID: %s",
   "tooltip.jeiintegration.tags": "Tags:",
-  "tooltip.jeiintegration.translationKey": "Translation Key:"
+  "tooltip.jeiintegration.translationKey": "Translation Key: %s"
 }
